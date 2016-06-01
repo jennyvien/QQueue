@@ -18,7 +18,6 @@
         </activity>
         <activity android:name=".CardQueueActivity" />
         <activity android:name=".YourLibraryActivity" />
-        <activity android:name=".SearchActivity" />
         <activity android:name=".PlaylistActivity"></activity>
     </application>
 
