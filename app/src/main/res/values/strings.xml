@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">QQueue</string>
+
+    <array name="nav_drawer_items">
+        <item>Search</item>>
+        <item>Current Queue</item>>
+        <item>Browse</item>>
+        <item>Your Library</item>>
+    </array>
+
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_search_black_24dp</item>>
+        <item>@drawable/ic_view_carousel_black_24dp</item>>
+        <item>@drawable/ic_public_black_24dp</item>>
+        <item>@drawable/ic_library_books_black_24dp</item>>
+    </array>
+
+</resources>
