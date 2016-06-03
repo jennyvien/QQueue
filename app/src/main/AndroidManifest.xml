@@ -9,16 +9,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".BaseActivity" />
-        <activity android:name=".BrowseActivity">
+        <activity android:name=".BrowseActivity"/>
+        <activity android:name=".CardQueueActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CardQueueActivity" />
         <activity android:name=".YourLibraryActivity" />
-        <activity android:name=".PlaylistActivity"></activity>
+        <activity android:name=".PlaylistActivity"/>
     </application>
 
 </manifest>
