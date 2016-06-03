@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">QQueue</string>
     <string name="btn_view_queue">View Queue</string>
+    <string name="btn_use_queue">Use</string>
 
     <array name="nav_drawer_items">
         <item>Search</item>>

@@ -16,4 +16,17 @@ public class MyData {
         "What is something that you can honestly say you're good at?\n",
         "What's something you hate but would grow to miss if it were gone?"
     };
+
+    static String[] browseQueueNames = {
+            "Group fun",
+            "French",
+            "Ice Breaker",
+            "First Date",
+            "Get to know the bestie",
+            "Random Roadtrip",
+            "Campfire",
+            "German",
+            "What's hot",
+            "Something"
+    };
 }

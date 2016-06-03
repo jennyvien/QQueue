@@ -9,7 +9,7 @@ import android.widget.TextView;
 /**
  * Created by Jenny on 6/3/2016.
  */
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
+public class QuestionCardsAdapter extends RecyclerView.Adapter<QuestionCardsAdapter.MyViewHolder> {
     private String[] questions;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -20,7 +20,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             this.textViewQuestion = (TextView) itemView.findViewById(R.id.text_view_question);
         }
     }
-    public CustomAdapter(String[] questions) {
+    public QuestionCardsAdapter(String[] questions) {
         this.questions = questions;
     }
 

@@ -1,6 +1,5 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +27,7 @@ public class CardQueueActivity extends BaseActivity {
 
         questions = MyData.questions;
 
-        adapter = new CustomAdapter(questions);
+        adapter = new QuestionCardsAdapter(questions);
         recyclerView.setAdapter(adapter);
     }
 }
