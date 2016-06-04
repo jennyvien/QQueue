@@ -2,6 +2,10 @@
     <string name="app_name">QQueue</string>
     <string name="btn_view_queue">View Queue</string>
     <string name="btn_use_queue">Use</string>
+    <string name="btn_edit_queue">Edit</string>
+    <string name="activity_your_library">Your Library</string>
+    <string name="activity_browse">Browse</string>
+    <string name="activity_current_queue">Current Queue</string>
 
     <array name="nav_drawer_items">
         <item>Search</item>>

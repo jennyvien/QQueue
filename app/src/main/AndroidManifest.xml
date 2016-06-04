@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".BaseActivity" />
         <activity android:name=".BrowseActivity"/>
-        <activity android:name=".CardQueueActivity">
+        <activity android:name=".CurrentQueueActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

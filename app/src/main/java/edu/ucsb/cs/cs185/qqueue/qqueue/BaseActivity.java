@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -64,15 +65,15 @@ public class BaseActivity extends AppCompatActivity {
                 mDrawerItems);
         mDrawerList.setAdapter(mDrawerAdapter);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(mTitle);
                 // calling onPrepareOptionsMenu() to show action bar icons
                 supportInvalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(mDrawerTitle);
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 supportInvalidateOptionsMenu();
             }
@@ -136,7 +137,7 @@ public class BaseActivity extends AppCompatActivity {
                 break;
             case 1:
                 Log.d(DEBUG, "Current Queue clicked");
-                intent = new Intent(this, CardQueueActivity.class);
+                intent = new Intent(this, CurrentQueueActivity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -160,6 +161,18 @@ public class BaseActivity extends AppCompatActivity {
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
         mDrawerLayout.closeDrawer(mDrawerList);
+    }
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 }
 
