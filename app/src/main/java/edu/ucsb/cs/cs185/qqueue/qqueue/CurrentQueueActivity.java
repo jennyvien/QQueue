@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import 	android.support.v7.widget.RecyclerView;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 
 public class CurrentQueueActivity extends BaseActivity {
@@ -39,6 +41,22 @@ public class CurrentQueueActivity extends BaseActivity {
 
         adapter = new QuestionCardsAdapter(questions);
         recyclerView.setAdapter(adapter);
+
+        Button viewQueue = ( Button )findViewById(R.id.viewQueue);
+        viewQueue.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                YourQueueFragment yourQueue = new YourQueueFragment();
+                yourQueue.setQueueListener(new YourQueueFragment.setQueueListener() {
+                    @Override
+                    public void onQueueSet() {
+
+                    }
+                });
+                yourQueue.show(getFragmentManager(), "yourQueue");
+            }
+        });
+
     }
 
     private void resetQuestions() {
