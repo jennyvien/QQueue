@@ -1,14 +1,19 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import 	android.support.v7.widget.RecyclerView;
-import android.content.SharedPreferences;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class CurrentQueueActivity extends BaseActivity {
@@ -42,11 +47,29 @@ public class CurrentQueueActivity extends BaseActivity {
         adapter = new QuestionCardsAdapter(questions);
         recyclerView.setAdapter(adapter);
 
+        final Activity activity = this;
         Button viewQueue = ( Button )findViewById(R.id.viewQueue);
         viewQueue.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 YourQueueFragment yourQueue = new YourQueueFragment();
+
+                Intent intent = new Intent( v.getContext(), CurrentQueueActivity.class);
+                ArrayList<String> questionsAL = new ArrayList<>( Arrays.asList(questions));
+                intent.putExtra("questions", questionsAL);
+                Toast.makeText(
+                        activity,
+                        "Size: "+questionsAL.size(),
+                        Toast.LENGTH_SHORT
+                ).show();
+
+//                Bundle bundle = new Bundle();
+//                ArrayList<String> questionsAL = new ArrayList<>( Arrays.asList(questions));
+//                Log.d(DEBUG, "+"+questionsAL.size());
+//
+//                bundle.putStringArrayList("questions", questionsAL);
+//                yourQueue.setArguments(bundle);
+
                 yourQueue.setQueueListener(new YourQueueFragment.setQueueListener() {
                     @Override
                     public void onQueueSet() {
