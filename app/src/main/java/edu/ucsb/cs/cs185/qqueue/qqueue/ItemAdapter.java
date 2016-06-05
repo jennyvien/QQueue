@@ -1,6 +1,6 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
-        import android.content.Intent;
+import android.content.Intent;
         import android.support.v7.widget.DefaultItemAnimator;
         import android.support.v7.widget.LinearLayoutManager;
         import android.support.v7.widget.RecyclerView;
@@ -80,6 +80,17 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
 
         if(isLibraryActivity) {
             buttonEdit.setVisibility(View.VISIBLE);
+
+            buttonEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), PlaylistActivity.class);
+                    intent.putExtra("playlist_name", browseItems.get(listPosition).getQueueName());
+                    intent.putExtra("playlist_questions", browseItems.get(listPosition).getQueueItems());
+                    v.getContext().startActivity(intent);
+                }
+            });
+
         }
 
     }
