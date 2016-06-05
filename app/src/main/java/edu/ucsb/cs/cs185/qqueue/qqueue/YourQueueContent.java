@@ -3,6 +3,7 @@ package edu.ucsb.cs.cs185.qqueue.qqueue;
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ import java.util.Arrays;
 //public class YourQueueContent extends ListActivity implements SwipeActionAdapter.SwipeActionListener {
 public class YourQueueContent extends ListFragment implements SwipeActionAdapter.SwipeActionListener {
 
+    private final String DEBUG = "YQC_DEBUG";
     protected SwipeActionAdapter mAdapter;
 //    private String[] content = new String[20];
     private ArrayList<String> content = new ArrayList<>();
@@ -150,9 +152,10 @@ public class YourQueueContent extends ListFragment implements SwipeActionAdapter
                             Toast.LENGTH_SHORT
                     ).show();
                     content.remove(position);
-
+                    Log.d(DEBUG, content.size() + "");
 //                    mAdapter.remove()
 //                    mAdapter.getAdapter().
+                    mAdapter.notifyDataSetChanged();
 
                     break;
                 case DIRECTION_NORMAL_RIGHT:

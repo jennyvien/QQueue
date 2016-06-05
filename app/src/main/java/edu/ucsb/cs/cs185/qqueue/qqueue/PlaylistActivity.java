@@ -47,4 +47,6 @@ public class PlaylistActivity extends BaseActivity {
         adapter = new PlaylistItemAdapter(queueQuestions);
         recyclerView.setAdapter(adapter);
     }
+
+
 }

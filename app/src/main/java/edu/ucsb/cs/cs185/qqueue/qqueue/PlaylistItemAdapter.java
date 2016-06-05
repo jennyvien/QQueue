@@ -5,7 +5,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,11 +20,11 @@ import java.util.ArrayList;
  * Created by Jenny on 6/4/2016.
  */
 public class PlaylistItemAdapter extends RecyclerView.Adapter<PlaylistItemAdapter.MyViewHolder> {
-    private final String DEBUG = "PIA_DEBUG";
+    private static final String DEBUG = "PIA_DEBUG";
 
     private String[] queueQuestions;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
         TextView textViewQueueName;
         ImageButton buttonMore;
 
@@ -30,7 +32,33 @@ public class PlaylistItemAdapter extends RecyclerView.Adapter<PlaylistItemAdapte
             super(itemView);
             this.textViewQueueName = (TextView) itemView.findViewById(R.id.playlist_item);
             this.buttonMore = (ImageButton) itemView.findViewById(R.id.button_more);
+            this.buttonMore.setOnCreateContextMenuListener(this);
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info) {
+            Log.d(DEBUG, "Clicked context menu");
+            menu.add(0, v.getId(), 0, "Edit");
+            menu.add(0, v.getId(), 0, "Delete");
+            menu.add(0, v.getId(), 0, "Add to Playlist");
+        }
+//
+//        @Override
+//        public boolean onContextItemSelected(MenuItem item) {
+//
+//            switch(item.getItemId()) {
+//                case 0: Toast.makeText(this, "Item selected 1", Toast.LENGTH_SHORT).show();
+//
+//                    break;
+//                case 1: Toast.makeText(this, "Item selected 2", Toast.LENGTH_SHORT).show();
+//
+//                    break;
+//                default:
+//
+//            }
+//
+//            return true;
+//        }
     }
 
     public PlaylistItemAdapter(String[] queueQuestions) {
@@ -59,8 +87,10 @@ public class PlaylistItemAdapter extends RecyclerView.Adapter<PlaylistItemAdapte
         buttonMore.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-               Log.d(DEBUG, "More clicked");
+                v.showContextMenu();
             }
         });
+
+
     }
 }
