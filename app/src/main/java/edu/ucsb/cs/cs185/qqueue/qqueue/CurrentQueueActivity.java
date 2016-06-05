@@ -1,6 +1,5 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +25,8 @@ public class CurrentQueueActivity extends BaseActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
     private String[] questions;
+
+    private Button viewQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,39 +47,81 @@ public class CurrentQueueActivity extends BaseActivity {
         adapter = new QuestionCardsAdapter(questions);
         recyclerView.setAdapter(adapter);
 
-        final Activity activity = this;
-        Button viewQueue = ( Button )findViewById(R.id.viewQueue);
-        viewQueue.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                YourQueueFragment yourQueue = new YourQueueFragment();
+        Log.d(DEBUG, "in onCreate" + questions.length + "");
 
-                Intent intent = new Intent( v.getContext(), CurrentQueueActivity.class);
-                ArrayList<String> questionsAL = new ArrayList<>( Arrays.asList(questions));
-                intent.putExtra("questions", questionsAL);
-                Toast.makeText(
-                        activity,
-                        "Size: "+questionsAL.size(),
-                        Toast.LENGTH_SHORT
-                ).show();
-
-//                Bundle bundle = new Bundle();
+        viewQueue = ( Button ) findViewById( R.id.viewQueue);
+//        final Activity activity = this;
+//        Button viewQueue = ( Button )findViewById(R.id.viewQueue);
+//        viewQueue.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                YourQueueFragment yourQueue = new YourQueueFragment();
+//                Log.d(DEBUG, " " + questions.length);
+//                Intent intent = new Intent( activity, CurrentQueueActivity.class);
 //                ArrayList<String> questionsAL = new ArrayList<>( Arrays.asList(questions));
-//                Log.d(DEBUG, "+"+questionsAL.size());
+//                intent.putExtra("questions", questionsAL);
+//                Toast.makeText(
+//                        activity,
+//                        "length: "+questions.length,
+//                        Toast.LENGTH_SHORT
+//                ).show();
+//                Toast.makeText(
+//                        activity,
+//                        "Size: "+questionsAL.size(),
+//                        Toast.LENGTH_SHORT
+//                ).show();
 //
-//                bundle.putStringArrayList("questions", questionsAL);
-//                yourQueue.setArguments(bundle);
+//
+////                Bundle bundle = new Bundle();
+////                ArrayList<String> questionsAL = new ArrayList<>( Arrays.asList(questions));
+////                Log.d(DEBUG, "+"+questionsAL.size());
+////
+////                bundle.putStringArrayList("questions", questionsAL);
+////                yourQueue.setArguments(bundle);
+//
+//                yourQueue.setQueueListener(new YourQueueFragment.setQueueListener() {
+//                    @Override
+//                    public void onQueueSet() {
+//
+//                    }
+//                });
+//                yourQueue.show(getFragmentManager(), "yourQueue");
+//            }
+//        });
 
-                yourQueue.setQueueListener(new YourQueueFragment.setQueueListener() {
-                    @Override
-                    public void onQueueSet() {
+    }
+    public void updateContent( ArrayList<String> array ){
+        String[] temp = new String[array.size()];
+        for(int i = 0; i < array.size(); i++) temp[i] = array.get(i);
+        questions = temp;
+    }
 
-                    }
-                });
-                yourQueue.show(getFragmentManager(), "yourQueue");
-            }
-        });
+    public void viewQueueClicked(View view){
+        YourQueueFragment yourQueue = new YourQueueFragment();
+        Log.d(DEBUG, " " + questions.length);
+        ArrayList<String> questionsAL = new ArrayList<>( Arrays.asList(questions));
+        //getFragmentManager().beginTransaction().replace(R.id.yourQueueDialog, yourQueue, "yourQueue").addToBackStack("yourQueue").commit();
 
+//        Intent intent = new Intent( this, CurrentQueueActivity.class);
+//        intent.putExtra("questions", questionsAL);
+        Bundle bundle = new Bundle();
+       // Log.d(DEBUG, "+"+questionsAL.size());
+        bundle.putStringArrayList("questions", questionsAL);
+        yourQueue.setArguments(bundle);
+        //beginTransaction().replace(R.id.yourQueueContent, yourQueue, "yourQueue").addToBackStack("yourQueue").commit();
+//
+//        Toast.makeText(
+//                this,
+//                "length: "+questions.length,
+//                Toast.LENGTH_SHORT
+//        ).show();
+//        Toast.makeText(
+//                this,
+//                "Size: "+questionsAL.size(),
+//                Toast.LENGTH_SHORT
+//        ).show();
+
+        yourQueue.show(getFragmentManager(), "yourQueue");
     }
 
     private void resetQuestions() {
@@ -95,6 +137,11 @@ public class CurrentQueueActivity extends BaseActivity {
         // Otherwise it is initial launch so use default queue
         if(questions == null) {
             questions = MyData.questions_1;
+        } else if( questions.length == 0 )
+        {
+            Log.d(DEBUG, "Setting questions");
+            questions = MyData.questions_1;
+
         }
     }
 
@@ -144,5 +191,10 @@ public class CurrentQueueActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    public void refresh(){
+        adapter = new QuestionCardsAdapter(questions);
+        recyclerView.setAdapter(adapter);
+
+    }
 
 }
