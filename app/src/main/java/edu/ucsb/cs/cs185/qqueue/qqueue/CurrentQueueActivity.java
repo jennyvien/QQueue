@@ -2,16 +2,22 @@ package edu.ucsb.cs.cs185.qqueue.qqueue;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import 	android.support.v7.widget.RecyclerView;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,14 +43,35 @@ public class CurrentQueueActivity extends BaseActivity {
     Button viewQueue;
     private int currentQuestionPos;
 
+    int theme;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        theme = getIntent().getIntExtra("theme", TYPE_NORMAL);
+
+        switch(theme) {
+            case TYPE_NORMAL :
+                this.setTheme(R.style.AppThemeNormal);
+                this.getTheme().applyStyle(R.style.AppThemeNormal, true);
+                break;
+            case TYPE_NSFW :
+                this.setTheme(R.style.AppThemeNSFW);
+                this.getTheme().applyStyle(R.style.AppThemeNSFW, true);
+                break;
+            case TYPE_SERIOUS :
+                this.setTheme(R.style.AppThemeSerious);
+                this.getTheme().applyStyle(R.style.AppThemeSerious, true);
+                break;
+            default:
+                this.setTheme(R.style.AppThemeNormal);
+                this.getTheme().applyStyle(R.style.AppThemeNormal, true);
+        }
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle(R.string.activity_current_queue);
         Log.d(DEBUG, "in onCreate");
         setContentView(R.layout.activity_card_queue);
         setupNavigationDrawer();
         resetQuestions();
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -53,9 +80,8 @@ public class CurrentQueueActivity extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter = new QuestionCardsAdapter(questions, true, TYPE_NORMAL);
+        adapter = new QuestionCardsAdapter(questions, true, theme);
         recyclerView.setAdapter(adapter);
-
         viewQueue = ( Button ) findViewById( R.id.viewQueue);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -94,22 +120,12 @@ public class CurrentQueueActivity extends BaseActivity {
             }
         });
 
-        adapter = new QuestionCardsAdapter(questions, true, TYPE_NORMAL);
+        adapter = new QuestionCardsAdapter(questions, true, theme);
         recyclerView.setAdapter(adapter);
-
-        //initialize library items
-        if(YourLibraryActivity.libraryItems == null) {
-            YourLibraryActivity.libraryItems = new ArrayList<BrowseItem>();
-            for (int i = 0; i < MyData.yourLibraryQueueNames.length; i++) {
-                YourLibraryActivity.libraryItems.add(new BrowseItem(
-                        MyData.yourLibraryQueueNames[i],
-                        MyData.questions_3
-                ));
-            }
-        }
+        setupBg();
     }
                 
-    static String[] convert( ArrayList<String> array ){
+    public String[] convert( ArrayList<String> array ){
         String[] temp = new String[array.size()];
         if(array.size() > 0) {
             for (int i = 0; i < array.size(); i++) temp[i] = array.get(i);
@@ -129,7 +145,7 @@ public class CurrentQueueActivity extends BaseActivity {
         }
     }
 
-    static ArrayList<String> convertFromString( String[] array ){
+    public ArrayList<String> convertFromString( String[] array ){
         ArrayList<String> temp = new ArrayList<>();
         if(array.length > 0) {
             for (int i = 0; i < array.length; i++) temp.add(array[i]);
@@ -212,15 +228,14 @@ public class CurrentQueueActivity extends BaseActivity {
             questions[i] = sharedPreferences.getString("questions_saved_" + i, null);
             Log.d(DEBUG, "in onResume" + questions[i]);
         }
-
         resetQuestions();
 
-        adapter = new QuestionCardsAdapter(questions, true, TYPE_NORMAL);
+        adapter = new QuestionCardsAdapter(questions, true, theme);
         recyclerView.setAdapter(adapter);
     }
 
     public void refresh() {
-        adapter = new QuestionCardsAdapter(questions, true, TYPE_NORMAL);
+        adapter = new QuestionCardsAdapter(questions, true, theme);
         recyclerView.setAdapter(adapter);
     }
 
@@ -245,6 +260,35 @@ public class CurrentQueueActivity extends BaseActivity {
 
     public void launchSettingsFragment() {
         SettingsFragment settingsFragment = new SettingsFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("theme_cur", theme);
+        settingsFragment.setArguments(bundle);
+
         settingsFragment.show(getFragmentManager(), "settingsFragment");
     }
+
+    private void setupBg() {
+           LinearLayout cql = (LinearLayout) findViewById(R.id.cq_layout);
+
+            switch (theme) {
+                case TYPE_NORMAL:
+                   cql.setBackgroundColor(getResources().getColor(R.color.colorNormalLight, null));
+
+                    break;
+                case TYPE_NSFW:
+                    cql.setBackgroundColor(getResources().getColor(R.color.colorNSFWLight, null));
+
+                    break;
+                case TYPE_SERIOUS:
+                   cql.setBackgroundColor(getResources().getColor(R.color.colorSeriousLight, null));
+
+                    break;
+                default:
+                   cql.setBackgroundColor(getResources().getColor(R.color.colorNormalLight, null));
+
+            }
+        }
+
+
 }

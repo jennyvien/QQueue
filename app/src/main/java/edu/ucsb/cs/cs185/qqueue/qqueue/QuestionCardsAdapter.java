@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -24,11 +25,13 @@ public class QuestionCardsAdapter extends RecyclerView.Adapter<QuestionCardsAdap
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textViewQuestion;
         CardView cardView;
+        LinearLayout cll;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.textViewQuestion = (TextView) itemView.findViewById(R.id.text_view_question);
             this.cardView = (CardView) itemView.findViewById(R.id.card_view);
+            this.cll = (LinearLayout) itemView.findViewById(R.id.card_linear_layout);
         }
     }
     public QuestionCardsAdapter(String[] questions, boolean useMainLayout, int questionsType) {
@@ -61,21 +64,26 @@ public class QuestionCardsAdapter extends RecyclerView.Adapter<QuestionCardsAdap
     public void onBindViewHolder(final MyViewHolder holder, final int listPosition) {
         TextView textViewQuestion = holder.textViewQuestion;
         CardView cardView = holder.cardView;
+        LinearLayout cll = holder.cll;
         textViewQuestion.setText(questions[listPosition]);
 
+        if (useMainLayout) {
 
-        switch(questionType) {
-            case TYPE_NORMAL :
-                break;
-            case TYPE_NSFW :
-                break;
-            case TYPE_SERIOUS :
-                cardView.setBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorSeriousPrimary));
-                break;
-            case TYPE_SERIOUS_NSFW :
-                break;
-            default:
-                break;
+            switch (questionType) {
+                case TYPE_NORMAL:
+                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNormalLight));
+
+                    break;
+                case TYPE_NSFW:
+                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNSFWLight));
+                    break;
+                case TYPE_SERIOUS:
+                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorSeriousLight));
+                    break;
+                default:
+                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNormalLight));
+                    break;
+            }
         }
     }
 }

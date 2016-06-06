@@ -69,42 +69,34 @@ public class MyData {
 
 //    ArrayList<String> yourLibraryQueueNamesAL = new ArrayList<>( Arrays.asList(yourLibraryQueueNames));
 
-    ArrayList<String> questionsNSFW = new ArrayList<String>();
-    ArrayList<String> questionsSerious = new ArrayList<String>();
+    static String[] questionsNSFW = {
+        "What's the craziest thing you've ever walked in on?",
+        "What's the most fucked up story you've ever heard?",
+        "What is your best truth or dare story?",
+        "What is a really inappropriate question you have always wanted to ask?",
+        "What is a really morbid question you have always wanted to ask?"
+    };
 
-    ArrayList<String> questionsSeriousNSFW = new ArrayList<String>();
+    ArrayList<String> questionsNSFWAL = new ArrayList<>(Arrays.asList(questionsNSFW));
 
+    static String[] questionsSerious = {
+        "What is something that you can honestly say you're good at?",
+        "What's something you hate but would grow to miss if it were gone?\n",
+        "What is something the world NEEDS, but hasn't been made?\n",
+        "What's something that everyone finds normal but makes you extremely uncomfortable?\n",
+        "What is the story of/behind the worst date you've ever been on?\n"
+    };
 
-    public ArrayList<String> getQuestionsSerious() {
-        return questionsSerious;
-    }
+    ArrayList<String> questionsSeriousAL = new ArrayList<>(Arrays.asList(questionsSerious));
 
-    public ArrayList<String> getQuestionsNSFW() {
-        return questionsNSFW;
-    }
+    static String[] questionsSeriousNSFW = {
+        "What's something that everyone finds normal but makes you extremely uncomfortable? ",
+        "What is the story of/behind the worst date you've ever been on?",
+        "What is your fetish and how common do you think it is?",
+        "What is something you find unacceptable, but society has labeled it acceptable?",
+        "Whats the most fucked up thing you've witnessed?"
+    };
 
-    public ArrayList<String> getQuestionsSeriousNSFW() {
-        return questionsSeriousNSFW;
-    }
-
-    public MyData() {
-        questionsNSFW.add("What's the craziest thing you've ever walked in on?");
-        questionsNSFW.add("What's the most fucked up story you've ever heard?");
-        questionsNSFW.add("What is your best truth or dare story?");
-        questionsNSFW.add("What is a really inappropriate question you have always wanted to ask?");
-        questionsNSFW.add("What is a really morbid question you have always wanted to ask?");
-
-        questionsSerious.add("What is something that you can honestly say you're good at?\n");
-        questionsSerious.add("What's something you hate but would grow to miss if it were gone?\n");
-        questionsSerious.add("What is something the world NEEDS, but hasn't been made?\n");
-        questionsSerious.add("What's something that everyone finds normal but makes you extremely uncomfortable?\n");
-        questionsSerious.add(" What is the story of/behind the worst date you've ever been on?\n");
-
-        questionsSeriousNSFW.add("What's something that everyone finds normal but makes you extremely uncomfortable? ");
-        questionsSeriousNSFW.add("What is the story of/behind the worst date you've ever been on?");
-        questionsSeriousNSFW.add("What is your fetish and how common do you think it is?");
-        questionsSeriousNSFW.add("What is something you find unacceptable, but society has labeled it acceptable?");
-        questionsSeriousNSFW.add("Whats the most fucked up thing you've witnessed?");
-    }
+    ArrayList<String> questionsSeriousNSFWAL = new ArrayList<>(Arrays.asList(questionsSeriousNSFW));
 
 }

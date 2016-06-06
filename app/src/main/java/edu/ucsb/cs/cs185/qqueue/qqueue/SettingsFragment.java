@@ -1,29 +1,25 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
-
-import java.util.ArrayList;
+import android.content.SharedPreferences;
 
 /**
  * Created by Jenny on 6/5/2016.
  */
-public class SettingsFragment extends DialogFragment{
+public class SettingsFragment extends DialogFragment {
     private static final String DEBUG = "SF_DEBUG";
     private final int TYPE_SERIOUS_NSFW = 0;
     private final int TYPE_NSFW = 1;
@@ -35,61 +31,88 @@ public class SettingsFragment extends DialogFragment{
     boolean notificationsToggled;
 
     int currentTheme;
-    Resources.Theme theme;
+
+    Switch switch_nsfw;
+    Switch switch_serious;
+    Switch switch_notif;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.settings_dialog, null);
+        setupBars(contentView);
+        setupCurrentTheme();
+        setupButton(contentView);
+        setupToggles(contentView);
+        resetToggles();
+        return contentView;
+    }
 
-        nsfwToggled = false;
-        seriousToggled = false;
-        notificationsToggled = false;
+    private void setupCurrentTheme() {
+        Bundle bundle = getArguments();
+        if (bundle != null)
+            currentTheme = bundle.getInt("theme_cur");
+        else
+            currentTheme = TYPE_NORMAL;
+    }
 
-        theme = getActivity().getTheme();
+    private void setupBars(ViewGroup contentView) {
+        RelativeLayout rl1 = (RelativeLayout) contentView.findViewById(R.id.bar1);
+        RelativeLayout rl2 = (RelativeLayout) contentView.findViewById(R.id.bar2);
+//        LinearLayout cql = (LinearLayout) contentView.findViewById(R.id.cq_layout);
 
-        //sets onclicklistener for ok button
-        final Fragment temp = this;
-        Button ok = (Button)contentView.findViewById(R.id.btn_settings_ok);
+        switch (currentTheme) {
+            case TYPE_NORMAL:
+                rl1.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
+                rl2.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
+//                cql.setBackgroundColor(getResources().getColor(R.color.colorNormalLight, null));
+
+                break;
+            case TYPE_NSFW:
+                rl1.setBackgroundColor(getResources().getColor(R.color.colorNSFWPrimary, null));
+                rl2.setBackgroundColor(getResources().getColor(R.color.colorNSFWPrimary, null));
+//                cql.setBackgroundColor(getResources().getColor(R.color.colorNSFWLight, null));
+
+                break;
+            case TYPE_SERIOUS:
+                rl1.setBackgroundColor(getResources().getColor(R.color.colorSeriousPrimary, null));
+                rl2.setBackgroundColor(getResources().getColor(R.color.colorSeriousPrimary, null));
+//                cql.setBackgroundColor(getResources().getColor(R.color.colorSeriousLight, null));
+
+                break;
+            default:
+                rl1.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
+                rl2.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
+//                cql.setBackgroundColor(getResources().getColor(R.color.colorNormalLight, null));
+
+        }
+    }
+
+    private void setupButton(ViewGroup contentView) {
+        Button ok = (Button) contentView.findViewById(R.id.btn_settings_ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-
-                //takes this fragment's questionList and sets the activity's member content to it
-                CurrentQueueActivity activity = (CurrentQueueActivity) getActivity();
-
-                MyData myData = new MyData();
-
-                if(nsfwToggled && seriousToggled) {
-                    activity.updateContentWithSettings(myData.getQuestionsSeriousNSFW(), TYPE_SERIOUS_NSFW);
-                } else if(nsfwToggled) {
-                    activity.updateContentWithSettings(myData.getQuestionsNSFW(), TYPE_NSFW);
-                } else if(seriousToggled) {
-                    activity.updateContentWithSettings(myData.getQuestionsSerious(), TYPE_NSFW);
-                }
-
-                //remove dialog
-                getFragmentManager().beginTransaction().remove(temp).commit();
-
-                //refreshes card queue actitivty
-                activity.refresh();
+                currentTheme = determineTheme();
+                Intent intent = new Intent(v.getContext(), CurrentQueueActivity.class);
+                intent.putExtra("theme", currentTheme);
+                startActivity(intent);
             }
         });
+    }
 
-        Switch nsfw_serious = (Switch) contentView.findViewById(R.id.switch_nsfw);
-        nsfw_serious.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    private void setupToggles(ViewGroup contentView) {
+        switch_nsfw = (Switch) contentView.findViewById(R.id.switch_nsfw);
+        switch_nsfw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     nsfwToggled = true;
-                    getActivity().setTheme(R.style.AppThemeNSFW);
-
                 } else {
                     nsfwToggled = false;
                 }
-                changeTheme();
             }
         });
 
-        Switch switch_serious = (Switch) contentView.findViewById(R.id.switch_serious);
+        switch_serious = (Switch) contentView.findViewById(R.id.switch_serious);
         switch_serious.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -98,12 +121,11 @@ public class SettingsFragment extends DialogFragment{
 
                     seriousToggled = false;
                 }
-                changeTheme();
             }
         });
 
 
-        Switch switch_notif = (Switch) contentView.findViewById(R.id.switch_notifications);
+        switch_notif = (Switch) contentView.findViewById(R.id.switch_notifications);
         switch_notif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -111,21 +133,52 @@ public class SettingsFragment extends DialogFragment{
                 } else {
                     notificationsToggled = false;
                 }
-                changeTheme();
             }
         });
-
-        return contentView;
     }
 
-    public void changeTheme() {
-        if(seriousToggled) {
-            getActivity().setTheme(R.style.AppThemeSerious);
+    public int determineTheme() {
+        if (seriousToggled) {
+            return TYPE_SERIOUS;
         } else if (nsfwToggled) {
-            getActivity().setTheme(R.style.AppThemeNSFW);
-            Log.d(DEBUG, "inchagetheme, nsfw");
+            return TYPE_NSFW;
         } else {
-            getActivity().setTheme(R.style.AppThemeNormal);
+            return TYPE_NORMAL;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        SharedPreferences sp = activity.getSharedPreferences("sp", Context.MODE_PRIVATE);
+        currentTheme = sp.getInt("saved_theme", TYPE_NORMAL);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences sp = getActivity().getSharedPreferences("sp", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("saved_theme", currentTheme);
+        editor.commit();
+    }
+
+    public void resetToggles() {
+        switch(currentTheme) {
+            case TYPE_NORMAL :
+                nsfwToggled = false;
+                seriousToggled = false;
+                break;
+            case TYPE_NSFW :
+                nsfwToggled = true;
+                switch_nsfw.toggle();
+                seriousToggled = false;
+                break;
+            case TYPE_SERIOUS :
+                nsfwToggled = false;
+                switch_serious.toggle();
+                seriousToggled = true;
+                break;
         }
     }
 }
