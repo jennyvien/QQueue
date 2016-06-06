@@ -11,7 +11,7 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="addtoplaylist">Add to Playlist</string>
-
+    <string name="editQuestion">Edit Question</string>
 
     <array name="nav_drawer_items">
         <item>Search</item>>

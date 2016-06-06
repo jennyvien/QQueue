@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -50,21 +49,30 @@ public class PlaylistItemDialog extends DialogFragment {
 //                Toast.LENGTH_SHORT
 //        ).show();
 
+        final Fragment tempThis = this;
+        final CurrentQueueActivity slave2 = slave;
+        final ArrayList<String> tempArray = slave2.convertFromString(questionList);
+
+        //edit
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(
-                        getActivity(),
-                        "Clicked edit",
-                        Toast.LENGTH_SHORT
-                ).show();
+
+                Bundle bundle = new Bundle();
+                PlaylistItemEditDialog edit = new PlaylistItemEditDialog();
+                //bundle.putString("question", question);
+                bundle.putInt("position", position);
+                bundle.putStringArray("questionList", questionList);
+
+                edit.setArguments(bundle);
+//                Activity activity = (Activity) view.getContext();
+                getFragmentManager().beginTransaction().remove(tempThis).commit();
+                edit.show(getFragmentManager(), "edit");
 
             }
         });
 
-        final Fragment tempThis = this;
-        final CurrentQueueActivity slave2 = slave;
-        final ArrayList<String> tempArray = slave2.convertFromString(questionList);
+        //delete
         delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -72,7 +80,6 @@ public class PlaylistItemDialog extends DialogFragment {
                 String[] tempStringList = slave2.convert(tempArray);
 
                 PlaylistActivity activity = (PlaylistActivity) getActivity();
-
                 activity.setQuestions(tempStringList);
 
                 getFragmentManager().beginTransaction().remove(tempThis).commit();
@@ -86,6 +93,20 @@ public class PlaylistItemDialog extends DialogFragment {
             }
         });
 
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("question", question);
+//                PlaylistItemAddtoplaylist addTo = new PlaylistItemAddtoplaylist();
+                PlaylistItemAddtoFragment addTo = new PlaylistItemAddtoFragment();
+                addTo.setArguments(bundle);
+                getFragmentManager().beginTransaction().remove(tempThis).commit();
+                addTo.show(getFragmentManager(), "addTo");
+            }
+
+
+        });
 
         return contentView;
     }

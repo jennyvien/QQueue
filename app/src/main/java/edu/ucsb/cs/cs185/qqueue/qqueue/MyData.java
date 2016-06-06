@@ -1,8 +1,5 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * Created by Jenny on 6/3/2016.
  */
@@ -15,7 +12,7 @@ public class MyData {
         "What's something you did as a child that you still feel horrible about?\n",
     };
 
-    ArrayList<String> questionsAL_1 = new ArrayList<>( Arrays.asList(questions_1));
+//    ArrayList<String> questionsAL_1 = new ArrayList<>( Arrays.asList(questions_1));
 
 
     static String[] questions_2 = {
@@ -25,7 +22,7 @@ public class MyData {
             "What is something the world NEEDS, but hasn't been made?\n",
     };
 
-    ArrayList<String> questionsAL_2 = new ArrayList<>( Arrays.asList(questions_2));
+//    ArrayList<String> questionsAL_2 = new ArrayList<>( Arrays.asList(questions_2));
 
 
     static String[] questions_3 = {
@@ -35,7 +32,7 @@ public class MyData {
             "Why aren't you working your dream job?\n",
     };
 
-    ArrayList<String> questionsAL_3 = new ArrayList<>( Arrays.asList(questions_3));
+//    ArrayList<String> questionsAL_3 = new ArrayList<>( Arrays.asList(questions_3));
 
 
     static String[] questions_4 = {
@@ -46,7 +43,7 @@ public class MyData {
             "What's something you hate but would grow to miss if it were gone?"
     };
 
-    ArrayList<String> questionsAL_4 = new ArrayList<>( Arrays.asList(questions_4));
+//    ArrayList<String> questionsAL_4 = new ArrayList<>( Arrays.asList(questions_4));
 
 
     static String[] browseQueueNames = {
@@ -57,18 +54,18 @@ public class MyData {
             "Get to know the bestie",
     };
 
-    ArrayList<String> browseQuenamesAL = new ArrayList<>( Arrays.asList(browseQueueNames));
 
 
     static String[] yourLibraryQueueNames = {
-            "Random Roadtrip",
-            "Campfire",
-            "German",
-            "What's hot",
-            "Something"
+            "Quirky Questions"
+//            ,
+//            "Campfire",
+//            "German",
+//            "What's hot",
+//            "Something"
     };
 
-    ArrayList<String> yourLibraryQueueNamesAL = new ArrayList<>( Arrays.asList(yourLibraryQueueNames));
+//    ArrayList<String> yourLibraryQueueNamesAL = new ArrayList<>( Arrays.asList(yourLibraryQueueNames));
 
 
 }

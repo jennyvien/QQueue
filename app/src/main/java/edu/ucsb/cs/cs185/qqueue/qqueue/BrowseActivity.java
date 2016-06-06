@@ -1,11 +1,9 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -16,6 +14,7 @@ public class BrowseActivity extends BaseActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
+
     private ArrayList<BrowseItem> browseItems;
     private Button buttonUse;
 

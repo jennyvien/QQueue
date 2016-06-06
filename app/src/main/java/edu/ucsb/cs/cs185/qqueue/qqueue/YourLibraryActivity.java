@@ -1,11 +1,9 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ public class YourLibraryActivity extends BaseActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
-    private ArrayList<BrowseItem> browseItems;
+    static ArrayList<BrowseItem> libraryItems;
     private Button buttonUse;
     private Button buttonEdit;
 
@@ -35,15 +33,24 @@ public class YourLibraryActivity extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        browseItems = new ArrayList<BrowseItem>();
-        for (int i = 0; i < MyData.browseQueueNames.length; i++) {
-            browseItems.add(new BrowseItem(
-                    MyData.browseQueueNames[i],
+        libraryItems = new ArrayList<BrowseItem>();
+        for (int i = 0; i < MyData.yourLibraryQueueNames.length; i++) {
+            libraryItems.add(new BrowseItem(
+                    MyData.yourLibraryQueueNames[i],
                     MyData.questions_3
             ));
         }
 
-        adapter = new ItemAdapter(browseItems, true);
+        adapter = new ItemAdapter(libraryItems, true);
         recyclerView.setAdapter(adapter);
     }
+
+    static ArrayList<String> getPlaylistNames(){
+        ArrayList<String> plItems = new ArrayList<>();
+        for (int i = 0; i < libraryItems.size(); i++) {
+            plItems.add(libraryItems.get(i).getQueueName());
+        }
+        return plItems;
+    }
+
 }

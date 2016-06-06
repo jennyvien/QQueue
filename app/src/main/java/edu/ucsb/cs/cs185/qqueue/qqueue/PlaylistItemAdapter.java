@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by Jenny on 6/4/2016.
@@ -20,9 +19,6 @@ public class PlaylistItemAdapter extends RecyclerView.Adapter<PlaylistItemAdapte
 
     private String[] queueQuestions;
 
-    public Activity callback(){
-        return null;
-    }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
         TextView textViewQueueName;
@@ -45,22 +41,7 @@ public class PlaylistItemAdapter extends RecyclerView.Adapter<PlaylistItemAdapte
             menu.add(0, v.getId(), 0, "Add to Playlist");
         }
 
-//        @Override
-//        public boolean onContextItemSelected(MenuItem item) {
-//
-//            switch(item.getItemId()) {
-//                case 0: Toast.makeText(, "Item selected 1", Toast.LENGTH_SHORT).show();
-//
-//                    break;
-//                case 1: Toast.makeText(this, "Item selected 2", Toast.LENGTH_SHORT).show();
-//
-//                    break;
-//                default:
-//
-//            }
-//
-//            return true;
-//        }
+
     }
 
     public PlaylistItemAdapter(String[] queueQuestions) {
@@ -103,11 +84,11 @@ public class PlaylistItemAdapter extends RecyclerView.Adapter<PlaylistItemAdapte
                 dialog.setArguments(bundle);
                 Activity activity = (Activity) v.getContext();
 
-                Toast.makeText(
-                activity,
-                "clicked",
-                Toast.LENGTH_SHORT
-                ).show();
+//                Toast.makeText(
+//                activity,
+//                "clicked",
+//                Toast.LENGTH_SHORT
+//                ).show();
 
                 dialog.show(activity.getFragmentManager(), "dialog");
 
