@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.wdullaer.swipeactionadapter.SwipeActionAdapter;
 
@@ -129,11 +131,11 @@ private YourLibraryActivity slave2 = new YourLibraryActivity();
     protected void onPause() {
         super.onPause();
 
-        Toast.makeText(
-                this,
-                "onpause",
-                Toast.LENGTH_SHORT
-        ).show();
+//        Toast.makeText(
+//                this,
+//                "onpause",
+//                Toast.LENGTH_SHORT
+//        ).show();
 
        slave2.updateLibraryItem(queueName, queueQuestions);
 //        YourLibraryActivity.updateLibraryItem(queueName, queueQuestions);
@@ -154,6 +156,36 @@ private YourLibraryActivity slave2 = new YourLibraryActivity();
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menu_playlist, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.settings:
+
+                //PlaylistNewPlaylistDialog dialog = new PlaylistNewPlaylistDialog();
+                //dialog.show(getFragmentManager(), "newQueue");
+
+//                DialogFragment confirm = new DialogFragment();
+                ConfirmationDialog confirm = new ConfirmationDialog();
+                Bundle bundle = new Bundle();
+                bundle.putString("queue", queueName);
+                confirm.setArguments(bundle);
+                confirm.show(getFragmentManager(), "dialog");
+
+                //slave2.removeLibraryItem(queueName);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
     //    @Override

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 public class YourQueueFragment extends DialogFragment {
     private setQueueListener listener;
     private ArrayList<String> questionList = new ArrayList<>();
-
+    private YourLibraryActivity slave = new YourLibraryActivity();
     public void setQueueListener( setQueueListener listener){this.listener = listener;}
 
     public interface setQueueListener{
@@ -69,6 +71,38 @@ public class YourQueueFragment extends DialogFragment {
 
                 //refreshes card queue actitivty
                 activity.refresh();
+
+            }
+        });
+
+        ImageButton star = (ImageButton)contentView.findViewById(R.id.imageButton);
+        star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //takes list from queuecontent and stores it in this fragment's member questionList
+                YourQueueContent tempContent = (YourQueueContent) getChildFragmentManager().findFragmentByTag("yourQueueContent");
+                questionList = tempContent.updateList();
+
+                //takes this fragment's questionList and sets the activity's member content to it
+                CurrentQueueActivity activity = (CurrentQueueActivity) getActivity();
+
+                String[] strArray = activity.convert(questionList);
+                //activity.setQuestions(strArray);
+
+                for(int i = 0; i < questionList.size();i++) {
+                    slave.addToLibraryItems("Favorites", questionList.get(i));
+                }
+                        Toast.makeText(
+                getActivity(),
+                "Current queue added to favorites!",
+                Toast.LENGTH_SHORT
+        ).show();
+                //remove dialog
+                getFragmentManager().beginTransaction().remove(temp).commit();
+
+                //refreshes card queue actitivty
+                //activity.refresh();
 
             }
         });

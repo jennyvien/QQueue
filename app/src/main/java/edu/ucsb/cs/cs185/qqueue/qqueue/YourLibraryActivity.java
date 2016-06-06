@@ -187,6 +187,29 @@ public class YourLibraryActivity extends BaseActivity {
 
     }
 
+    public void removeLibraryItem( String queueName ){
+
+        Log.d(DEBUG, queueName);
+
+        for (int i = 0; i < libraryItems.size(); i++) {
+            BrowseItem item =libraryItems.get(i);
+            Log.d(DEBUG, item.getQueueName());
+            String qName = item.getQueueName();
+            if(qName.equals(queueName) ){
+//                ArrayList<String> temp = CurrentQueueActivity.convertFromString(questions);
+//                String[] list2 = CurrentQueueActivity.convert(temp);
+//                item.setQueueItems(list2);
+
+                libraryItems.remove(i);
+
+                Log.d(DEBUG, "set");
+
+            }
+        }
+
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

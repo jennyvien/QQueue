@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.wdullaer.swipeactionadapter.SwipeActionAdapter;
 import com.wdullaer.swipeactionadapter.SwipeDirection;
@@ -85,11 +84,11 @@ public class PlaylistItemAddtoplaylist extends ListFragment implements SwipeActi
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id){
-        Toast.makeText(
-                getActivity(),
-                "Clicked "+mAdapter.getItem(position),
-                Toast.LENGTH_SHORT
-        ).show();
+//        Toast.makeText(
+//                getActivity(),
+//                "Clicked "+mAdapter.getItem(position),
+//                Toast.LENGTH_SHORT
+//        ).show();
 
 //        Bundle bundle = new Bundle();
 //        bundle.putString("question", question);
@@ -98,6 +97,7 @@ public class PlaylistItemAddtoplaylist extends ListFragment implements SwipeActi
         String queueName = (String) mAdapter.getItem(position);
         slave.addToLibraryItems(queueName, question);
         Log.d(DEBUG, queueName);
+        Log.d(DEBUG, question);
 
 //        PlaylistItemAddtoplaylist frag = (PlaylistItemAddtoplaylist)getActivity().getFragmentManager().findFragmentByTag("dialog");
         PlaylistItemAddtoFragment frag = (PlaylistItemAddtoFragment) PlaylistItemDialog.frag;

@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class PlaylistItemAddtoFragment extends DialogFragment {
 //    private setQueueListener listener;
     private ArrayList<String> questionList = new ArrayList<>();
+    private final String DEBUG = "PA_DEBUG";
 
 
     @Override
@@ -45,7 +47,9 @@ public class PlaylistItemAddtoFragment extends DialogFragment {
         if(bundle!=null) content = bundle.getString("question");
 
         Bundle bundle2 = new Bundle();
-        bundle2.putString(content, "question");
+        bundle2.putString( "question", content);
+        Log.d(DEBUG, content);
+
         playlist.setArguments(bundle2);
 
         //looks for "yourQueueContent" and adds the new fragment into it with a tag
