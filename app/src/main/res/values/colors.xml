@@ -3,15 +3,20 @@
     <color name="colorNormalPrimary">#A5D6A7</color>
     <color name="colorNormalPrimaryDark">#81C784</color>
     <color name="colorNormalAccent">#F06292</color>
+    <color name="colorNormalLight">#C8E6C9</color>
 
 
     <color name="colorSeriousPrimary">#9FA8DA</color>
     <color name="colorSeriousDark">#7986CB</color>
     <color name="colorSeriousAccent">#FF8A65</color>
+    <color name="colorSeriousLight">#C5CAE9</color>
 
-    <color name="colorNSFWPrimary">#F48FB1</color>
-    <color name="colorNSFWDark">#F06292</color>
+    <color name="colorNSFWPrimary">#ef9a9a</color>
+    <color name="colorNSFWDark">#e57373</color>
     <color name="colorNSFWAccent">#64B5F6</color>
+    <color name="colorNSFWLight">#ffcdd2</color>
+
+
 
 
 

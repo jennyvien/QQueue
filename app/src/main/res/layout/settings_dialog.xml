@@ -9,8 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorNormalPrimary"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bar1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorNormalPrimary">
+        android:id="@+id/bar2">
 
         <Button
             android:layout_width="wrap_content"
