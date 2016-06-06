@@ -8,6 +8,10 @@
     <string name="activity_current_queue">Current Queue</string>
     <string name="ok">OK</string>
     <string name="yourQueueHeader">Your Queue</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="addtoplaylist">Add to Playlist</string>
+
 
     <array name="nav_drawer_items">
         <item>Search</item>>

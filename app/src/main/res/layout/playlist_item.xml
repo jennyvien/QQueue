@@ -18,5 +18,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_more_horiz_black_24dp"
         android:layout_weight="1"
+        android:onClick="playlistMoreClicked"
         android:id="@+id/button_more"/>
 </LinearLayout>

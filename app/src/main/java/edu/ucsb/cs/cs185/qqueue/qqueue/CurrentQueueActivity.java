@@ -28,6 +28,7 @@ public class CurrentQueueActivity extends BaseActivity {
 
     private Button viewQueue;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,50 +51,26 @@ public class CurrentQueueActivity extends BaseActivity {
         Log.d(DEBUG, "in onCreate" + questions.length + "");
 
         viewQueue = ( Button ) findViewById( R.id.viewQueue);
-//        final Activity activity = this;
-//        Button viewQueue = ( Button )findViewById(R.id.viewQueue);
-//        viewQueue.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                YourQueueFragment yourQueue = new YourQueueFragment();
-//                Log.d(DEBUG, " " + questions.length);
-//                Intent intent = new Intent( activity, CurrentQueueActivity.class);
-//                ArrayList<String> questionsAL = new ArrayList<>( Arrays.asList(questions));
-//                intent.putExtra("questions", questionsAL);
-//                Toast.makeText(
-//                        activity,
-//                        "length: "+questions.length,
-//                        Toast.LENGTH_SHORT
-//                ).show();
-//                Toast.makeText(
-//                        activity,
-//                        "Size: "+questionsAL.size(),
-//                        Toast.LENGTH_SHORT
-//                ).show();
-//
-//
-////                Bundle bundle = new Bundle();
-////                ArrayList<String> questionsAL = new ArrayList<>( Arrays.asList(questions));
-////                Log.d(DEBUG, "+"+questionsAL.size());
-////
-////                bundle.putStringArrayList("questions", questionsAL);
-////                yourQueue.setArguments(bundle);
-//
-//                yourQueue.setQueueListener(new YourQueueFragment.setQueueListener() {
-//                    @Override
-//                    public void onQueueSet() {
-//
-//                    }
-//                });
-//                yourQueue.show(getFragmentManager(), "yourQueue");
-//            }
-//        });
 
     }
-    public void updateContent( ArrayList<String> array ){
+    public String[] convert( ArrayList<String> array ){
         String[] temp = new String[array.size()];
-        for(int i = 0; i < array.size(); i++) temp[i] = array.get(i);
-        questions = temp;
+        if(array.size() > 0) {
+            for (int i = 0; i < array.size(); i++) temp[i] = array.get(i);
+        }
+        return temp;
+    }
+
+    public ArrayList<String> convertFromString( String[] array ){
+        ArrayList<String> temp = new ArrayList<>();
+        if(array.length > 0) {
+            for (int i = 0; i < array.length; i++) temp.add(array[i]);
+        }
+        return temp;
+    }
+
+    public void setQuestions( String[] s){
+        questions = s;
     }
 
     public void viewQueueClicked(View view){
@@ -102,24 +79,9 @@ public class CurrentQueueActivity extends BaseActivity {
         ArrayList<String> questionsAL = new ArrayList<>( Arrays.asList(questions));
         //getFragmentManager().beginTransaction().replace(R.id.yourQueueDialog, yourQueue, "yourQueue").addToBackStack("yourQueue").commit();
 
-//        Intent intent = new Intent( this, CurrentQueueActivity.class);
-//        intent.putExtra("questions", questionsAL);
         Bundle bundle = new Bundle();
-       // Log.d(DEBUG, "+"+questionsAL.size());
         bundle.putStringArrayList("questions", questionsAL);
         yourQueue.setArguments(bundle);
-        //beginTransaction().replace(R.id.yourQueueContent, yourQueue, "yourQueue").addToBackStack("yourQueue").commit();
-//
-//        Toast.makeText(
-//                this,
-//                "length: "+questions.length,
-//                Toast.LENGTH_SHORT
-//        ).show();
-//        Toast.makeText(
-//                this,
-//                "Size: "+questionsAL.size(),
-//                Toast.LENGTH_SHORT
-//        ).show();
 
         yourQueue.show(getFragmentManager(), "yourQueue");
     }
@@ -196,5 +158,7 @@ public class CurrentQueueActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
 
     }
+
+
 
 }
