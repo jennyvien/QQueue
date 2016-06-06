@@ -16,7 +16,7 @@
     <string name="settings_nsfw">NSFW</string>
     <string name="settings_serious">Serious</string>
     <string name="settings_notif">Notifications</string>
-    <string name="editQuestion">Edit Question</string>
+    <string name="editQuestion">Edit Question:</string>
 
     <array name="nav_drawer_items">
         <item>Search</item>>

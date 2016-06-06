@@ -1,16 +1,17 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
 import android.content.Intent;
-        import android.support.v7.widget.DefaultItemAnimator;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.support.v7.widget.RecyclerView;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.Button;
-        import android.widget.TextView;
+import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
 /**
  * Created by Jenny on 6/3/2016.
@@ -90,7 +91,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
                     Intent intent = new Intent(v.getContext(), PlaylistActivity.class);
                     intent.putExtra("playlist_name", browseItems.get(listPosition).getQueueName());
                     intent.putExtra("playlist_questions", browseItems.get(listPosition).getQueueItems());
-                    v.getContext().startActivity(intent);
+//                    v.getContext().startActivity(intent);
+                    Bundle bundle = new Bundle();
+                    v.getContext().startActivity(intent, bundle);
                 }
             });
 

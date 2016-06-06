@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.widget.Toast;
 
 import com.wdullaer.swipeactionadapter.SwipeActionAdapter;
 
@@ -26,12 +26,13 @@ public class PlaylistActivity extends BaseActivity {
     private ArrayList<String> questionArrayList = new ArrayList<>();
     private CurrentQueueActivity slave = new CurrentQueueActivity();
 
+private YourLibraryActivity slave2 = new YourLibraryActivity();
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-
+    static Bundle paBundle;
 
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -78,15 +79,19 @@ public class PlaylistActivity extends BaseActivity {
         setContentView(R.layout.activity_playlist);
         setupNavigationDrawer();
 
+
+        if(savedInstanceState!= null) paBundle = savedInstanceState;
+
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
             if (extras != null) {
                 queueName = extras.getString("playlist_name");
+
                 queueQuestions = extras.getStringArray("playlist_questions");
 
-                Log.d(DEBUG, queueName);
-                Log.d(DEBUG, queueQuestions[0]);
+//                Log.d(DEBUG, queueName);
+//                Log.d(DEBUG, queueQuestions[0]);
             }
         }
 
@@ -100,6 +105,8 @@ public class PlaylistActivity extends BaseActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
+
+
         adapter = new PlaylistItemAdapter(queueQuestions);
         recyclerView.setAdapter(adapter);
     }
@@ -107,6 +114,9 @@ public class PlaylistActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         adapter = new PlaylistItemAdapter(queueQuestions);
         recyclerView.setAdapter(adapter);
@@ -115,9 +125,22 @@ public class PlaylistActivity extends BaseActivity {
 
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Toast.makeText(
+                this,
+                "onpause",
+                Toast.LENGTH_SHORT
+        ).show();
+
+       slave2.updateLibraryItem(queueName, queueQuestions);
+//        YourLibraryActivity.updateLibraryItem(queueName, queueQuestions);
+    }
 
 
-    public void setQuestions( String[] s){
+    public void setQuestions(String[] s){
         queueQuestions = s;
     }
 
@@ -126,10 +149,12 @@ public class PlaylistActivity extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-
         adapter = new PlaylistItemAdapter(queueQuestions);
         recyclerView.setAdapter(adapter);
     }
+
+
+
 
     //    @Override
 //    public boolean hasActions(int position, SwipeDirection direction) {

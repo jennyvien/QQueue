@@ -18,6 +18,7 @@ public class BrowseItem {
         return queueItems;
     }
 
+
     public void setQueueItems(String[] queueItems) {
         this.queueItems = queueItems;
     }

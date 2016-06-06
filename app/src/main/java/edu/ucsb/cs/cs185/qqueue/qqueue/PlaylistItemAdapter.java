@@ -20,6 +20,8 @@ public class PlaylistItemAdapter extends RecyclerView.Adapter<PlaylistItemAdapte
     private String[] queueQuestions;
 
 
+
+
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
         TextView textViewQueueName;
         ImageButton buttonMore;
@@ -57,6 +59,8 @@ public class PlaylistItemAdapter extends RecyclerView.Adapter<PlaylistItemAdapte
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.playlist_item, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
+
+
         return myViewHolder;
     }
 

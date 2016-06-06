@@ -42,6 +42,9 @@ public class BaseActivity extends AppCompatActivity {
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         navMenuIcons = getResources()
                 .obtainTypedArray(R.array.nav_drawer_icons);
+
+
+
     }
 
     // Different activites using the nav drawer will call this method.

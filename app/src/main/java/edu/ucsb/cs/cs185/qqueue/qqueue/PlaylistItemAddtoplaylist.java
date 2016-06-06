@@ -2,11 +2,12 @@ package edu.ucsb.cs.cs185.qqueue.qqueue;
 
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.wdullaer.swipeactionadapter.SwipeActionAdapter;
 import com.wdullaer.swipeactionadapter.SwipeDirection;
@@ -22,6 +23,8 @@ public class PlaylistItemAddtoplaylist extends ListFragment implements SwipeActi
 //    private ArrayList<String> content = new ArrayList<>();
     private String question;
     private Button ok;
+    private  YourLibraryActivity slave =  new YourLibraryActivity();
+    private final String DEBUG = "PA_DEBUG";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,12 @@ public class PlaylistItemAddtoplaylist extends ListFragment implements SwipeActi
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.playlist_item_addtoplaylist, null);
-        return contentView;
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        super.onCreateView(inflater, container, savedInstanceState);
+//        ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.playlist_item_addtoplaylist, null);
+//        return contentView;
+//    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -78,6 +81,28 @@ public class PlaylistItemAddtoplaylist extends ListFragment implements SwipeActi
         if(direction.isLeft()) return false;
         if(direction.isRight()) return false;
         return false;
+    }
+
+    @Override
+    public void onListItemClick(ListView listView, View view, int position, long id){
+        Toast.makeText(
+                getActivity(),
+                "Clicked "+mAdapter.getItem(position),
+                Toast.LENGTH_SHORT
+        ).show();
+
+//        Bundle bundle = new Bundle();
+//        bundle.putString("question", question);
+
+
+        String queueName = (String) mAdapter.getItem(position);
+        slave.addToLibraryItems(queueName, question);
+        Log.d(DEBUG, queueName);
+
+//        PlaylistItemAddtoplaylist frag = (PlaylistItemAddtoplaylist)getActivity().getFragmentManager().findFragmentByTag("dialog");
+        PlaylistItemAddtoFragment frag = (PlaylistItemAddtoFragment) PlaylistItemDialog.frag;
+        getActivity().getFragmentManager().beginTransaction().remove(frag).commit();
+
     }
 
     @Override

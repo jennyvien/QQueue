@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,20 +16,20 @@ import java.util.ArrayList;
  * Created by Spencer on 6/4/2016.
  */
 public class PlaylistItemAddtoFragment extends DialogFragment {
-    private setQueueListener listener;
+//    private setQueueListener listener;
     private ArrayList<String> questionList = new ArrayList<>();
 
-    public void setQueueListener( setQueueListener listener){this.listener = listener;}
-
-    public interface setQueueListener{
-        void onQueueSet();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.your_queue_dialog, null);
+//        ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.your_queue_dialog, null);
+        ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.playlist_item_addtoplaylist2, null);
         TextView name = (TextView)contentView.findViewById(R.id.yourQueueHeader);
-        name.setText("Add to:");
+        name.setText("Add To Your Queue:");
+
+        //Button button = (Button)contentView.findViewById(R.id.okbutton);
+        RelativeLayout bottom = (RelativeLayout)contentView.findViewById(R.id.listBottomBar);
+        bottom.setVisibility(View.GONE);
 
         //Get fragment manager at YQC level
         FragmentManager fragmentManager = getChildFragmentManager();

@@ -2,13 +2,10 @@ package edu.ucsb.cs.cs185.qqueue.qqueue;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import 	android.support.v7.widget.RecyclerView;
-import android.content.SharedPreferences;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -58,6 +55,7 @@ public class CurrentQueueActivity extends BaseActivity {
 
         adapter = new QuestionCardsAdapter(questions, true, TYPE_NORMAL);
         recyclerView.setAdapter(adapter);
+
         viewQueue = ( Button ) findViewById( R.id.viewQueue);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -98,9 +96,20 @@ public class CurrentQueueActivity extends BaseActivity {
 
         adapter = new QuestionCardsAdapter(questions, true, TYPE_NORMAL);
         recyclerView.setAdapter(adapter);
+
+        //initialize library items
+        if(YourLibraryActivity.libraryItems == null) {
+            YourLibraryActivity.libraryItems = new ArrayList<BrowseItem>();
+            for (int i = 0; i < MyData.yourLibraryQueueNames.length; i++) {
+                YourLibraryActivity.libraryItems.add(new BrowseItem(
+                        MyData.yourLibraryQueueNames[i],
+                        MyData.questions_3
+                ));
+            }
+        }
     }
                 
-    public String[] convert( ArrayList<String> array ){
+    static String[] convert( ArrayList<String> array ){
         String[] temp = new String[array.size()];
         if(array.size() > 0) {
             for (int i = 0; i < array.size(); i++) temp[i] = array.get(i);
@@ -120,7 +129,7 @@ public class CurrentQueueActivity extends BaseActivity {
         }
     }
 
-    public ArrayList<String> convertFromString( String[] array ){
+    static ArrayList<String> convertFromString( String[] array ){
         ArrayList<String> temp = new ArrayList<>();
         if(array.length > 0) {
             for (int i = 0; i < array.length; i++) temp.add(array[i]);

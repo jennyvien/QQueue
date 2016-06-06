@@ -1,5 +1,7 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
+import java.util.ArrayList;
+
 /**
  * Created by Jenny on 6/3/2016.
  */
@@ -57,7 +59,7 @@ public class MyData {
 
 
     static String[] yourLibraryQueueNames = {
-            "Quirky Questions"
+            "Favorites"
 //            ,
 //            "Campfire",
 //            "German",

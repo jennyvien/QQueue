@@ -23,6 +23,8 @@ public class PlaylistItemDialog extends DialogFragment {
     private String[] questionList;
     private String question;
     private int position;
+
+    static Fragment frag;
 //    @Override
 //    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -84,7 +86,7 @@ public class PlaylistItemDialog extends DialogFragment {
 
                 getFragmentManager().beginTransaction().remove(tempThis).commit();
 
-                activity.refresh();
+                //activity.refresh();
 
                 //activity.returnAdapter().notifyDataSetChanged();
 //                activity.returnView().invalidate();
@@ -102,6 +104,7 @@ public class PlaylistItemDialog extends DialogFragment {
                 PlaylistItemAddtoFragment addTo = new PlaylistItemAddtoFragment();
                 addTo.setArguments(bundle);
                 getFragmentManager().beginTransaction().remove(tempThis).commit();
+                frag = addTo;
                 addTo.show(getFragmentManager(), "addTo");
             }
 
