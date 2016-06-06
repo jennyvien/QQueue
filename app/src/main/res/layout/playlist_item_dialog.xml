@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit"
+            style="?android:attr/borderlessButtonStyle"
+
+            android:id="@+id/Edit"
+            android:textAlignment="textStart" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            style="?android:attr/borderlessButtonStyle"
+
+            android:id="@+id/Delete"
+            android:textAlignment="textStart" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/addtoplaylist"
+            style="?android:attr/borderlessButtonStyle"
+
+            android:id="@+id/AddtoPlaylist"
+            android:textAlignment="textStart" />
+    </LinearLayout>
+
+</FrameLayout>

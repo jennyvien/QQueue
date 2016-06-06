@@ -60,7 +60,9 @@ public class YourQueueFragment extends DialogFragment {
 
                 //takes this fragment's questionList and sets the activity's member content to it
                 CurrentQueueActivity activity = (CurrentQueueActivity) getActivity();
-                activity.updateContent(questionList);
+
+                String[] strArray = activity.convert(questionList);
+                activity.setQuestions(strArray);
 
                 //remove dialog
                 getFragmentManager().beginTransaction().remove(temp).commit();

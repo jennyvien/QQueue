@@ -32,7 +32,6 @@ public class CurrentQueueActivity extends BaseActivity {
     private final int TYPE_SERIOUS = 2;
     private final int TYPE_NORMAL = 3;
 
-
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
@@ -42,7 +41,6 @@ public class CurrentQueueActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle(R.string.activity_current_queue);
         Log.d(DEBUG, "in onCreate");
@@ -57,9 +55,12 @@ public class CurrentQueueActivity extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        adapter = new QuestionCardsAdapter(questions);
+        recyclerView.setAdapter(adapter);
+        viewQueue = ( Button ) findViewById( R.id.viewQueue);
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             private int direction;
-
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -86,9 +87,7 @@ public class CurrentQueueActivity extends BaseActivity {
                         }
                         break;
                 }
-
             }
-
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -99,11 +98,13 @@ public class CurrentQueueActivity extends BaseActivity {
         adapter = new QuestionCardsAdapter(questions, true, TYPE_NORMAL);
         recyclerView.setAdapter(adapter);
     }
-
-    public void updateContent( ArrayList<String> array ){
+                
+    public String[] convert( ArrayList<String> array ){
         String[] temp = new String[array.size()];
-        for(int i = 0; i < array.size(); i++) temp[i] = array.get(i);
-        questions = temp;
+        if(array.size() > 0) {
+            for (int i = 0; i < array.size(); i++) temp[i] = array.get(i);
+        }
+        return temp;
     }
 
     public void updateContentWithSettings( ArrayList<String> array, int type ){
@@ -118,6 +119,17 @@ public class CurrentQueueActivity extends BaseActivity {
         }
     }
 
+    public ArrayList<String> convertFromString( String[] array ){
+        ArrayList<String> temp = new ArrayList<>();
+        if(array.length > 0) {
+            for (int i = 0; i < array.length; i++) temp.add(array[i]);
+        }
+        return temp;
+    }
+
+    public void setQuestions( String[] s){
+        questions = s;
+    }
 
     public void viewQueueClicked(View view){
         YourQueueFragment yourQueue = new YourQueueFragment();
@@ -188,6 +200,7 @@ public class CurrentQueueActivity extends BaseActivity {
         questions = new String[size];
         for(int i=0; i<size; i++) {
             questions[i] = sharedPreferences.getString("questions_saved_" + i, null);
+            Log.d(DEBUG, "in onResume" + questions[i]);
         }
 
         resetQuestions();
@@ -199,7 +212,6 @@ public class CurrentQueueActivity extends BaseActivity {
     public void refresh(){
         adapter = new QuestionCardsAdapter(questions, true, TYPE_NORMAL);
         recyclerView.setAdapter(adapter);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -211,8 +223,8 @@ public class CurrentQueueActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.settings:
+            switch (item.getItemId()) {
+                case R.id.settings:
                 launchSettingsFragment();
                 return true;
             default:
