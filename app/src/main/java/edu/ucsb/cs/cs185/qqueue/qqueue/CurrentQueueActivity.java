@@ -37,6 +37,7 @@ public class CurrentQueueActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private String[] questions;
 
+    Button viewQueue;
     private int currentQuestionPos;
 
     @Override
@@ -55,7 +56,7 @@ public class CurrentQueueActivity extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter = new QuestionCardsAdapter(questions);
+        adapter = new QuestionCardsAdapter(questions, true, TYPE_NORMAL);
         recyclerView.setAdapter(adapter);
         viewQueue = ( Button ) findViewById( R.id.viewQueue);
 
@@ -209,9 +210,10 @@ public class CurrentQueueActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    public void refresh(){
+    public void refresh() {
         adapter = new QuestionCardsAdapter(questions, true, TYPE_NORMAL);
         recyclerView.setAdapter(adapter);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
