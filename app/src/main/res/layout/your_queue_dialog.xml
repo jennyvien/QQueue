@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorNormalPrimary"
         android:layout_alignParentBottom="true">
 
         <TextView
@@ -33,7 +33,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorNormalPrimary">
 
         <Button
             android:layout_width="wrap_content"

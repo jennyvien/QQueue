@@ -1,11 +1,27 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppThemeNormal" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorNormalPrimary</item>
+        <item name="colorPrimaryDark">@color/colorNormalPrimaryDark</item>
+        <item name="colorAccent">@color/colorNormalAccent</item>
     </style>
+
+    <style name="AppThemeSerious" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorSeriousPrimary</item>
+        <item name="colorPrimaryDark">@color/colorSeriousDark</item>
+        <item name="colorAccent">@color/colorSeriousAccent</item>
+    </style>
+
+
+    <style name="AppThemeNSFW" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorNSFWPrimary</item>
+        <item name="colorPrimaryDark">@color/colorNSFWDark</item>
+        <item name="colorAccent">@color/colorNSFWAccent</item>
+    </style>
+
 
 </resources>

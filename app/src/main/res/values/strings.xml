@@ -8,6 +8,10 @@
     <string name="activity_current_queue">Current Queue</string>
     <string name="ok">OK</string>
     <string name="yourQueueHeader">Your Queue</string>
+    <string name="settings">Settings</string>
+    <string name="settings_nsfw">NSFW</string>
+    <string name="settings_serious">Serious</string>
+    <string name="settings_notif">Notifications</string>
 
     <array name="nav_drawer_items">
         <item>Search</item>>
