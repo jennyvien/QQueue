@@ -17,6 +17,8 @@ import android.content.Intent;
  */
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
     private final String BROWSE_QUESTIONS = "BROWSE_QUESTIONS";
+    private final int TYPE_NORMAL = 3;
+
     private ArrayList<BrowseItem> browseItems;
     private boolean isLibraryActivity;
 
@@ -47,6 +49,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item, parent, false);
+
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
@@ -66,7 +69,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
 
         String[] questions = browseItems.get(listPosition).getQueueItems();
 
-        QuestionCardsAdapter adapter = new QuestionCardsAdapter(questions);
+        QuestionCardsAdapter adapter = new QuestionCardsAdapter(questions, false, TYPE_NORMAL);
         recyclerViewQuestions.setAdapter(adapter);
 
         buttonUse.setOnClickListener(new View.OnClickListener(){

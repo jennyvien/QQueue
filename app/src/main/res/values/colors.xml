@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorNormalPrimary">#A5D6A7</color>
+    <color name="colorNormalPrimaryDark">#81C784</color>
+    <color name="colorNormalAccent">#F06292</color>
+
+
+    <color name="colorSeriousPrimary">#9FA8DA</color>
+    <color name="colorSeriousDark">#7986CB</color>
+    <color name="colorSeriousAccent">#FF8A65</color>
+
+    <color name="colorNSFWPrimary">#F48FB1</color>
+    <color name="colorNSFWDark">#F06292</color>
+    <color name="colorNSFWAccent">#64B5F6</color>
+
+
+
+
 </resources>

@@ -11,6 +11,11 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="addtoplaylist">Add to Playlist</string>
+
+    <string name="settings">Settings</string>
+    <string name="settings_nsfw">NSFW</string>
+    <string name="settings_serious">Serious</string>
+    <string name="settings_notif">Notifications</string>
     <string name="editQuestion">Edit Question</string>
 
     <array name="nav_drawer_items">
