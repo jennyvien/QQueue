@@ -3,9 +3,9 @@ package edu.ucsb.cs.cs185.qqueue.qqueue;
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -13,107 +13,62 @@ import com.wdullaer.swipeactionadapter.SwipeActionAdapter;
 import com.wdullaer.swipeactionadapter.SwipeDirection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Spencer on 6/4/2016.
  */
 //public class YourQueueContent extends ListActivity implements SwipeActionAdapter.SwipeActionListener {
 public class YourQueueContent extends ListFragment implements SwipeActionAdapter.SwipeActionListener {
-
-    private final String DEBUG = "YQC_DEBUG";
     protected SwipeActionAdapter mAdapter;
-//    private String[] content = new String[20];
     private ArrayList<String> content = new ArrayList<>();
-    private int flag = 0;
+    private Button ok;
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater,
-//                             ViewGroup container,
-//                             Bundle savedInstanceState){
-//        return inflater.inflate(R.layout.your_queue_content, container, false);
-//
-//    }
-//
-//    @Override
-//    public void onActivityCreated(Bundle savedInstanceState) {
-////        super.onCreate(savedInstanceState);
-////        View contentView = getActivity().getLayoutInflater().inflate(R.layout.your_queue_content, null);
-//
-//
-//        String[] content = new String[20];
-//        for (int i = 0; i < 20; i++) content[i] = "Row " + (i + 1);
-////        ArrayAdapter<String> stringAdapter = new ArrayAdapter<>(
-//        ArrayAdapter<String> stringAdapter = new ArrayAdapter<>(
-//                //this, //replaced with getActivity()
-//                getActivity(),
-//                R.layout.your_queue_row,
-//                R.id.text,
-//                new ArrayList<>(Arrays.asList(content))
-//        );
-//        mAdapter = new SwipeActionAdapter(stringAdapter);
-//        mAdapter.setSwipeActionListener(this)
-//                .setDimBackgrounds(true)
-//                .setListView(getListView());
-//        setListAdapter(mAdapter);
-//    }
-//    @Override
-//    public View onCreateView(LayoutInflater inflater,
-//                             ViewGroup container,
-//                             Bundle savedInstanceState){
-//        View v = inflater.inflate(R.layout.your_queue_content, container, false);
-//        String[] content = new String[20];
-//        for (int i = 0; i < 20; i++) content[i] = "Row " + (i + 1);
-////        ArrayAdapter<String> stringAdapter = new ArrayAdapter<>(
-//        ArrayAdapter<String> stringAdapter = new ArrayAdapter<>(
-//                //this, //replaced with getActivity()
-//                getActivity(),
-//                R.layout.your_queue_row,
-//                R.id.text,
-//                new ArrayList<>(Arrays.asList(content))
-//        );
-//        mAdapter = new SwipeActionAdapter(stringAdapter);
-//        mAdapter.setSwipeActionListener(this)
-//                .setDimBackgrounds(true)
-//                .setListView(getListView());
-//        setListAdapter(mAdapter);
-//        return v;
-//    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        if (savedInstanceState != null) {
+//            content = savedInstanceState.getStringArrayList("questions");
+//        }
+        Bundle bundle = getArguments();
+        if(bundle!=null) content = bundle.getStringArrayList("questions");
+
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //initialize demo array
-        //for (int i = 0; i < 20; i++) content.set(i, "Row " + (i + 1));
-
-        if( flag == 0 )for (int i = 0; i < 20; i++) content.add( "Row " + (i + 1) );
-        else for (int i = 0; i < content.size(); i++) content.add( "Row " + (i + 1) );
-
-        Toast.makeText(
-                getActivity(),
-                "Build content",
-                Toast.LENGTH_SHORT
-        ).show();
+//        Toast.makeText(
+//                getActivity(),
+//                "Passed in length: "+content.size(),
+//                Toast.LENGTH_SHORT
+//        ).show();
 
         String[] contentArray = new String[content.size()];
         for( int j = 0; j < content.size(); j++) contentArray[j] = content.get(j);
 
         ArrayAdapter<String> stringAdapter = new ArrayAdapter<>(
-                //this, //replaced with getActivity()
                 getActivity(),
                 R.layout.your_queue_row,
                 R.id.text,
-                new ArrayList<>(Arrays.asList(contentArray))
+                content
         );
         mAdapter = new SwipeActionAdapter(stringAdapter);
         mAdapter.setSwipeActionListener(this)
                 .setDimBackgrounds(true)
                 .setListView(getListView());
         setListAdapter(mAdapter);
-       //mAdapter.
+
+        ok = (Button)getActivity().findViewById(R.id.okbutton);
     }
 
+    public void okClicked(){
+        getActivity().getFragmentManager().beginTransaction().remove(this).commit();
+    }
+
+    public ArrayList<String> updateList(){
+        return content;
+    }
 
     @Override
     public boolean hasActions(int position, SwipeDirection direction) {
@@ -152,11 +107,14 @@ public class YourQueueContent extends ListFragment implements SwipeActionAdapter
                             Toast.LENGTH_SHORT
                     ).show();
                     content.remove(position);
-                    Log.d(DEBUG, content.size() + "");
-//                    mAdapter.remove()
-//                    mAdapter.getAdapter().
-                    mAdapter.notifyDataSetChanged();
 
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("updatedlist", content);
+                    //Fragment dialog = getActivity().getFragmentManager().findFragmentByTag("yourQueue");
+                    //dialog.setArguments(bundle);
+                    //getActivity().updateContent(content);
+
+                    mAdapter.notifyDataSetChanged();
                     break;
                 case DIRECTION_NORMAL_RIGHT:
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -164,11 +122,11 @@ public class YourQueueContent extends ListFragment implements SwipeActionAdapter
                     dir = "Right";
                     break;
             }
-            Toast.makeText(
-                    getActivity(),
-                    dir + " swipe Action triggered on " + mAdapter.getItem(position),
-                    Toast.LENGTH_SHORT
-            ).show();
+//            Toast.makeText(
+//                    getActivity(),
+//                    dir + " swipe Action triggered on " + mAdapter.getItem(position),
+//                    Toast.LENGTH_SHORT
+//            ).show();
             mAdapter.notifyDataSetChanged();
         }
     }

@@ -29,7 +29,8 @@
             android:text="@string/btn_view_queue"
             android:textSize="20sp"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:onClick="viewQueueClicked"/>
     </RelativeLayout>
 
 

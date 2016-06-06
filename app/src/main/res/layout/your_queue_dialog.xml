@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:text="@string/ok"
             android:id="@+id/okbutton"
+            android:onClick="okClicked"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true" />
     </RelativeLayout>
