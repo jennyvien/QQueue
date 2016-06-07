@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class ConfirmationDialog extends DialogFragment {
     public String dialogString;
@@ -43,9 +44,13 @@ public class ConfirmationDialog extends DialogFragment {
         });
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-               // listener.setDialog(true);
+
                 slave2.removeLibraryItem(content);
-                //MainActivity.deleteAll();
+                Toast.makeText(
+                        getActivity(),
+                        content +" has been deleted",
+                        Toast.LENGTH_SHORT
+                ).show();
                 getActivity().finish();
 
             }

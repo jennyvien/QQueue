@@ -43,13 +43,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     }
 
     public int getItemCount() {
-        return this.browseItems.size();
+//        return this.browseItems.size();
+        if (this.browseItems == null) {
+            return 0;
+        }
+        else return this.browseItems.size();
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item, parent, false);
+
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
@@ -83,21 +88,47 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         });
 
         if(isLibraryActivity) {
-            buttonEdit.setVisibility(View.VISIBLE);
-
-            buttonEdit.setOnClickListener(new View.OnClickListener() {
+            textViewQueueName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), PlaylistActivity.class);
                     intent.putExtra("playlist_name", browseItems.get(listPosition).getQueueName());
                     intent.putExtra("playlist_questions", browseItems.get(listPosition).getQueueItems());
 //                    v.getContext().startActivity(intent);
+                    intent.putExtra("type", "library");
                     Bundle bundle = new Bundle();
                     v.getContext().startActivity(intent, bundle);
                 }
             });
 
+//            buttonEdit.setVisibility(View.GONE);
+//            buttonEdit.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(v.getContext(), PlaylistActivity.class);
+//                    intent.putExtra("playlist_name", browseItems.get(listPosition).getQueueName());
+//                    intent.putExtra("playlist_questions", browseItems.get(listPosition).getQueueItems());
+////                    v.getContext().startActivity(intent);
+//                    Bundle bundle = new Bundle();
+//                    v.getContext().startActivity(intent, bundle);
+//                }
+//            });
+
         }
 
+        if(!isLibraryActivity) {
+            textViewQueueName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), PlaylistActivity.class);
+                    intent.putExtra("playlist_name", browseItems.get(listPosition).getQueueName());
+                    intent.putExtra("playlist_questions", browseItems.get(listPosition).getQueueItems());
+//                    v.getContext().startActivity(intent);
+                    intent.putExtra("type", "browse");
+                    Bundle bundle = new Bundle();
+                    v.getContext().startActivity(intent, bundle);
+                }
+            });
+        }
     }
 }

@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -8,19 +9,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 /**
  * Created by Spencer on 6/4/2016.
  */
 public class PlaylistItemAddtoFragment extends DialogFragment {
 //    private setQueueListener listener;
-    private ArrayList<String> questionList = new ArrayList<>();
+    private String question;
+//    private ArrayList<String> questionList = new ArrayList<>();
     private final String DEBUG = "PA_DEBUG";
+    private String[] questions;
 
+    private int from = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -29,9 +32,48 @@ public class PlaylistItemAddtoFragment extends DialogFragment {
         TextView name = (TextView)contentView.findViewById(R.id.yourQueueHeader);
         name.setText("Add To Your Queue:");
 
+        Bundle bundleN = getArguments();
+        if (bundleN != null) {
+            question = bundleN.getString("question");
+            questions = bundleN.getStringArray("questionList");
+            from = bundleN.getInt("from");
+        }
+
         //Button button = (Button)contentView.findViewById(R.id.okbutton);
-        RelativeLayout bottom = (RelativeLayout)contentView.findViewById(R.id.listBottomBar);
-        bottom.setVisibility(View.GONE);
+//        RelativeLayout bottom = (RelativeLayout)contentView.findViewById(R.id.listBottomBar);
+//        bottom.setVisibility(View.GONE);
+        Button button = (Button)contentView.findViewById(R.id.okbutton);
+        button.setText("Cancel");
+        final Fragment tempFrag = this;
+        button.setOnClickListener(new View.OnClickListener() {
+                                      @Override
+                                      public void onClick(View v) {
+                                          getFragmentManager().beginTransaction().remove(tempFrag).commit();
+
+                                      }
+                                  }
+        );
+
+        ImageButton add = (ImageButton)contentView.findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   getFragmentManager().beginTransaction().remove(tempFrag).commit();
+
+                   //load the add dialog
+                   PlaylistNewPlaylistDialog dialog = new PlaylistNewPlaylistDialog();
+
+                   Bundle bundle1 = new Bundle();
+                   bundle1.putInt("addFromPlaylist", 1);
+                   bundle1.putString("question", question );
+
+                   dialog.setArguments(bundle1);
+                   dialog.show(getFragmentManager(), "newQueue");
+
+
+               }
+           }
+        );
 
         //Get fragment manager at YQC level
         FragmentManager fragmentManager = getChildFragmentManager();

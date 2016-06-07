@@ -125,14 +125,9 @@ public class YourQueueFragment extends DialogFragment {
 
             }
         });
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setView(contentView).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        // save changes to current list
-//                    }
-//                });
-//        builder.create();
+
+
+
         return contentView;
     }
 

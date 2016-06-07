@@ -24,6 +24,7 @@ public class PlaylistActivity extends BaseActivity {
 
     private String queueName;
     private String[] queueQuestions;
+    private String type;
 
     private ArrayList<String> questionArrayList = new ArrayList<>();
     private CurrentQueueActivity slave = new CurrentQueueActivity();
@@ -36,43 +37,6 @@ private YourLibraryActivity slave2 = new YourLibraryActivity();
 
     static Bundle paBundle;
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        Intent intent = getIntent();
-//        if (intent != null) {
-//            Bundle extras = intent.getExtras();
-//            if (extras != null) {
-//                queueName = extras.getString("playlist_name");
-//                queueQuestions = extras.getStringArray("playlist_questions");
-//                questionArrayList=slave.convertFromString(queueQuestions);
-//
-//
-//                Log.d(DEBUG, queueName);
-//                Log.d(DEBUG, queueQuestions[0]);
-//            }
-//        }
-//
-//       // if(queueQuestions!=null)questionArrayList = slave.convertFromString(queueQuestions);
-//        //questionArrayList = new ArrayList<>( Arrays.asList(new String[]{"hello", "test", "bye"}));
-//
-//
-//        if(questionArrayList.size()>0) {
-//            ArrayAdapter<String> stringAdapter = new ArrayAdapter<>(
-//                    this,
-//                    R.layout.playlist_item,
-//                    R.id.playlist_item,
-//                    questionArrayList
-//            );
-//            mAdapter = new SwipeActionAdapter(stringAdapter);
-//            mAdapter.setSwipeActionListener(this)
-//                    .setDimBackgrounds(true)
-//                    .setListView(getListView());
-//            setListAdapter(mAdapter);
-//        }
-//
-//    }
 
 
     @Override
@@ -89,8 +53,8 @@ private YourLibraryActivity slave2 = new YourLibraryActivity();
             Bundle extras = intent.getExtras();
             if (extras != null) {
                 queueName = extras.getString("playlist_name");
-
                 queueQuestions = extras.getStringArray("playlist_questions");
+                type = extras.getString("type");
 
 //                Log.d(DEBUG, queueName);
 //                Log.d(DEBUG, queueQuestions[0]);
@@ -109,7 +73,11 @@ private YourLibraryActivity slave2 = new YourLibraryActivity();
 
 
 
-        adapter = new PlaylistItemAdapter(queueQuestions);
+
+//        adapter = new PlaylistItemAdapter(queueQuestions);
+        if( type.equals("library") )adapter = new PlaylistItemAdapter(queueQuestions);
+        else adapter = new BrowseListItemAdapter(queueQuestions);
+
         recyclerView.setAdapter(adapter);
     }
 
@@ -159,71 +127,27 @@ private YourLibraryActivity slave2 = new YourLibraryActivity();
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar_menu_playlist, menu);
+        if(type.equals("library"))inflater.inflate(R.menu.action_bar_menu_playlist, menu);
+        else inflater.inflate(R.menu.action_bar_menu_browselist, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
+        // Delete button
         switch (item.getItemId()) {
             case R.id.settings:
 
-                //PlaylistNewPlaylistDialog dialog = new PlaylistNewPlaylistDialog();
-                //dialog.show(getFragmentManager(), "newQueue");
-
-//                DialogFragment confirm = new DialogFragment();
                 ConfirmationDialog confirm = new ConfirmationDialog();
                 Bundle bundle = new Bundle();
                 bundle.putString("queue", queueName);
                 confirm.setArguments(bundle);
                 confirm.show(getFragmentManager(), "dialog");
 
-                //slave2.removeLibraryItem(queueName);
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-    //    @Override
-//    public boolean hasActions(int position, SwipeDirection direction) {
-//        if(direction.isLeft()) return false;
-//        if(direction.isRight()) return true;
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean shouldDismiss(int position, SwipeDirection direction) {
-//        return direction == SwipeDirection.DIRECTION_FAR_RIGHT;
-//    }
-//
-//    @Override
-//    public void onSwipe(int[] positionList, SwipeDirection[] directionList) {
-//        for(int i=0;i<positionList.length;i++) {
-//            SwipeDirection direction = directionList[i];
-//            int position = positionList[i];
-//
-//            switch (direction) {
-//                case DIRECTION_FAR_LEFT:
-//                    break;
-//                case DIRECTION_NORMAL_LEFT:
-//                    break;
-//                case DIRECTION_FAR_RIGHT:
-//                    questionArrayList.remove(position);
-//                    mAdapter.notifyDataSetChanged();
-//                    break;
-//                case DIRECTION_NORMAL_RIGHT:
-//
-//                    break;
-//            }
-//            mAdapter.notifyDataSetChanged();
-//        }
-//    }
-
-
-
 
 }

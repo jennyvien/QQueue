@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,10 +24,12 @@ public class PlaylistNewPlaylistDialog extends DialogFragment {
     private String[] questionList;
     private String question;
     private int position;
+    private int addFromPlaylist = 0;
 
     public CurrentQueueActivity slave = new CurrentQueueActivity();
 
     public YourLibraryActivity slave2 = new YourLibraryActivity();
+
 
     //@Nullable
     @Override
@@ -38,6 +41,7 @@ public class PlaylistNewPlaylistDialog extends DialogFragment {
             question = bundle.getString("question");
             position = bundle.getInt("position");
             questionList = bundle.getStringArray("questionList");
+            addFromPlaylist = bundle.getInt("addFromPlaylist");
         }
 
        ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.playlist_item_edit, null);
@@ -59,7 +63,6 @@ public class PlaylistNewPlaylistDialog extends DialogFragment {
                 String name = edit.getText().toString();
 
 //                tempArray.set(position, editedQuestion);
-                YourLibraryActivity activity = (YourLibraryActivity) getActivity();
                 getFragmentManager().beginTransaction().remove(tempThis).commit();
 //                PlaylistActivity activity = (PlaylistActivity) getActivity();
 //                String[] tempStringList = slave.convert(tempArray);
@@ -67,7 +70,38 @@ public class PlaylistNewPlaylistDialog extends DialogFragment {
 
                 slave2.addNewQueue(name);
 
-                activity.refresh();
+                //dialog called from YourLibraryActivity
+                if( addFromPlaylist  == 0 ) {
+                    YourLibraryActivity activity = (YourLibraryActivity) getActivity();
+                    activity.refresh();
+
+                }
+
+                //dialog called from PlaylistItemAddToFragment dialog
+                if(addFromPlaylist == 1){
+                    slave2.addToLibraryItems(name, question);
+                    Toast.makeText(
+                            getActivity(),
+                            question+" added to "+name +"!",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+
+                //dialog called from YourQueueFragment
+                if(addFromPlaylist == 2){
+                    String[] buffer = questionList;
+                    for(int i = 0 ; i < buffer.length ; i++)
+                    {
+                        slave2.addToLibraryItems(name, buffer[i] );
+                    }
+                    Toast.makeText(
+                            getActivity(),
+                            "Current queue added to "+ name +"!",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+
+
 
 
                 //activity.setQuestions(tempStringList);
