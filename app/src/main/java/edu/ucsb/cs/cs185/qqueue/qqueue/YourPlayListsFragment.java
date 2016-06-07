@@ -10,23 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 /**
  * Created by Spencer on 6/4/2016.
  */
-public class YourQueueFragment extends DialogFragment {
+public class YourPlayListsFragment extends DialogFragment {
     private setQueueListener listener;
     private ArrayList<String> questionList = new ArrayList<>();
     private YourLibraryActivity slave = new YourLibraryActivity();
+    private CurrentQueueActivity slave2 = new CurrentQueueActivity();
     public void setQueueListener( setQueueListener listener){this.listener = listener;}
 
     public interface setQueueListener{
         void onQueueSet();
     }
-
-    static Fragment frag;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -39,7 +39,11 @@ public class YourQueueFragment extends DialogFragment {
         final YourQueueContent yourQueue = new YourQueueContent();
 
         ArrayList<String> content = new ArrayList<>();
-        Bundle bundle = getArguments();
+        //Bundle bundle = getArguments();
+        ArrayList<String> names = YourLibraryActivity.getPlaylistNames();
+        Bundle bundle = new Bundle();
+        String[] nameList = slave2.convert(names);
+        bundle.putStringArray("names",nameList);
         if(bundle!=null) content = bundle.getStringArrayList("questions");
 
         Bundle bundle2 = new Bundle();
@@ -91,35 +95,17 @@ public class YourQueueFragment extends DialogFragment {
                 String[] strArray = activity.convert(questionList);
                 //activity.setQuestions(strArray);
 
-                //bundle up selected questions
-                //pass to yourplaylistsfragment
-                //close current dialog
-
-                //YourQueueATPListfragment listFrag = new YourQueueATPListfragment();
-
-                YourQueueAddToPlaylist playlist = new YourQueueAddToPlaylist();
-
-                Bundle bundle = new Bundle();
-                bundle.putStringArray("questions", strArray);
-                playlist.setArguments(bundle);
-                playlist.show(getFragmentManager(), "playlist");
-
-                frag = playlist;
-
-
-//                //move this code into yourplaylistsfragment
-//                for(int i = 0; i < questionList.size();i++) {
-//                    slave.addToLibraryItems("Favorites", questionList.get(i));
-//                }
-
-
-
+                for(int i = 0; i < questionList.size();i++) {
+                    slave.addToLibraryItems("Favorites", questionList.get(i));
+                }
+                        Toast.makeText(
+                getActivity(),
+                "Current queue added to favorites!",
+                Toast.LENGTH_SHORT
+        ).show();
                 //remove dialog
                 getFragmentManager().beginTransaction().remove(temp).commit();
 
-
-//                YourPlayListsFragment pl = new YourPlayListsFragment();
-//                pl.show(getFragmentManager(), "pl");
                 //refreshes card queue actitivty
                 //activity.refresh();
 
