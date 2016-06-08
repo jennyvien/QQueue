@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.Toast;
 
 /**
  * Created by Jenny on 6/5/2016.
@@ -61,6 +62,14 @@ public class SettingsFragment extends DialogFragment {
                 Intent intent = new Intent(v.getContext(), CurrentQueueActivity.class);
                 intent.putExtra("theme", currentTheme);
                 final Activity act = getActivity();
+
+                if(notificationsToggled) {
+                    Toast.makeText(
+                            v.getContext(),
+                            "You will be receiving notifications from QQueue.",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
                 startActivity(intent);
                 act.finish();
             }
@@ -121,6 +130,7 @@ public class SettingsFragment extends DialogFragment {
         super.onAttach(activity);
         SharedPreferences sp = activity.getSharedPreferences("sp", Context.MODE_PRIVATE);
         currentTheme = sp.getInt("saved_theme", TYPE_NORMAL);
+        notificationsToggled = sp.getBoolean("notif", false);
     }
 
     @Override
@@ -129,6 +139,7 @@ public class SettingsFragment extends DialogFragment {
         SharedPreferences sp = getActivity().getSharedPreferences("sp", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("saved_theme", currentTheme);
+        editor.putBoolean("notif", notificationsToggled);
         editor.commit();
     }
 
@@ -153,7 +164,8 @@ public class SettingsFragment extends DialogFragment {
                 seriousToggled = true;
                 switch_nsfw.toggle();
                 switch_serious.toggle();
-
         }
+        if(notificationsToggled)
+            switch_notif.toggle();
     }
 }
