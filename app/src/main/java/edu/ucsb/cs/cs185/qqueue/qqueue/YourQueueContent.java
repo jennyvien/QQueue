@@ -46,7 +46,7 @@ public class YourQueueContent extends ListFragment implements SwipeActionAdapter
 
         ArrayAdapter<String> stringAdapter = new ArrayAdapter<>(
                 getActivity(),
-                R.layout.your_queue_row,
+                R.layout.your_queue_rowarrow,
                 R.id.text,
                 content
         );
@@ -91,11 +91,10 @@ public class YourQueueContent extends ListFragment implements SwipeActionAdapter
                 case DIRECTION_NORMAL_LEFT:
                     break;
                 case DIRECTION_FAR_RIGHT:
-                    content.remove(position);
-                    mAdapter.notifyDataSetChanged();
                     break;
                 case DIRECTION_NORMAL_RIGHT:
-
+                    content.remove(position);
+                    mAdapter.notifyDataSetChanged();
                     break;
             }
             mAdapter.notifyDataSetChanged();

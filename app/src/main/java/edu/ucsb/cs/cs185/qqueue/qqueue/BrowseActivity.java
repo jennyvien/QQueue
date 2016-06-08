@@ -48,6 +48,7 @@ public class BrowseActivity extends BaseActivity {
                 MyData.browseQueueNames[1],
                 MyData.shuffle(MyData.questions_3)
         ));
+
         browseItems.add(new BrowseItem(
                 MyData.browseQueueNames[2],
                 MyData.shuffle(MyData.questions_4)
@@ -57,9 +58,11 @@ public class BrowseActivity extends BaseActivity {
                 MyData.shuffle(MyData.questions_5)
         ));
 
+
         adapter = new ItemAdapter(browseItems, false);
         recyclerView.setAdapter(adapter);
 
     }
+
 
 }

@@ -80,7 +80,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CurrentQueueActivity.class);
                 intent.putExtra(BROWSE_QUESTIONS, browseItems.get(listPosition).getQueueItems());
+//                intent.putExtra(BROWSE_QUESTIONS, MyData.shuffle(browseItems.get(listPosition).getQueueItems()));
+
+                //
+//                Activity temp = (Activity) v.getContext();
+
                 v.getContext().startActivity(intent);
+//                temp.overridePendingTransition(0,0);
+               //
+//                temp.finish();
             }
         });
 
