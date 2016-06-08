@@ -47,7 +47,7 @@ public class PlaylistNewPlaylistDialog extends DialogFragment {
        ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.playlist_item_edit, null);
 
         TextView text = (TextView)contentView.findViewById(R.id.textView);
-        text.setText("Name New Playlist:");
+        text.setText("Name New Queue:");
         ok = (Button)contentView.findViewById(R.id.okEditButton);
         edit = (EditText) contentView.findViewById(R.id.editText);
 

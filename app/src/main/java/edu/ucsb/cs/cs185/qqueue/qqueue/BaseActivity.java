@@ -148,13 +148,13 @@ public class BaseActivity extends AppCompatActivity {
                 Log.d(DEBUG, "Browse clicked");
                 intent = new Intent(this, BrowseActivity.class);
                 startActivity(intent);
-                finish();
+//                finish();
                 break;
             case 3:
                 Log.d(DEBUG, "Your Library clicked");
                 intent = new Intent(this, YourLibraryActivity.class);
                 startActivity(intent);
-                finish();
+//                finish();
                 break;
             default:
                 break;

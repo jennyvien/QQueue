@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 
 /**
@@ -94,6 +93,13 @@ public class SettingsFragment extends DialogFragment {
                 Intent intent = new Intent(v.getContext(), CurrentQueueActivity.class);
                 intent.putExtra("theme", currentTheme);
                 final Activity act = getActivity();
+
+//                Toast.makeText(
+//                        getActivity(),
+//                        "Notifications Toggled!",
+//                        Toast.LENGTH_SHORT
+//                ).show();
+
                 startActivity(intent);
                 act.finish();
             }

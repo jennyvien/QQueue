@@ -91,10 +91,11 @@ public class YourQueueContent extends ListFragment implements SwipeActionAdapter
                 case DIRECTION_NORMAL_LEFT:
                     break;
                 case DIRECTION_FAR_RIGHT:
-                    break;
-                case DIRECTION_NORMAL_RIGHT:
                     content.remove(position);
                     mAdapter.notifyDataSetChanged();
+                    break;
+                case DIRECTION_NORMAL_RIGHT:
+
                     break;
             }
             mAdapter.notifyDataSetChanged();

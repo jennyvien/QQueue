@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -86,8 +87,13 @@ public class PlaylistItemDialog extends DialogFragment {
 
                 getFragmentManager().beginTransaction().remove(tempThis).commit();
 
-                //activity.refresh();
+                activity.refresh();
 
+                Toast.makeText(
+                        getActivity(),
+                        "Question Removed!",
+                        Toast.LENGTH_SHORT
+                ).show();
                 //activity.returnAdapter().notifyDataSetChanged();
 //                activity.returnView().invalidate();
 
