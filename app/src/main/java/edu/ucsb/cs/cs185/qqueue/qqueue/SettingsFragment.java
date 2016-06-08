@@ -39,7 +39,6 @@ public class SettingsFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.settings_dialog, null);
-//        setupBars(contentView);
         setupCurrentTheme();
         setupButton(contentView);
         setupToggles(contentView);
@@ -54,38 +53,6 @@ public class SettingsFragment extends DialogFragment {
         else
             currentTheme = TYPE_NORMAL;
     }
-
-//    private void setupBars(ViewGroup contentView) {
-//        RelativeLayout rl1 = (RelativeLayout) contentView.findViewById(R.id.bar1);
-//        RelativeLayout rl2 = (RelativeLayout) contentView.findViewById(R.id.bar2);
-////        LinearLayout cql = (LinearLayout) contentView.findViewById(R.id.cq_layout);
-//
-//        switch (currentTheme) {
-//            case TYPE_NORMAL:
-//                rl1.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
-//                rl2.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
-////                cql.setBackgroundColor(getResources().getColor(R.color.colorNormalLight, null));
-//
-//                break;
-//            case TYPE_NSFW:
-//                rl1.setBackgroundColor(getResources().getColor(R.color.colorNSFWPrimary, null));
-//                rl2.setBackgroundColor(getResources().getColor(R.color.colorNSFWPrimary, null));
-////                cql.setBackgroundColor(getResources().getColor(R.color.colorNSFWLight, null));
-//
-//                break;
-//            case TYPE_SERIOUS:
-//                rl1.setBackgroundColor(getResources().getColor(R.color.colorSeriousPrimary, null));
-//                rl2.setBackgroundColor(getResources().getColor(R.color.colorSeriousPrimary, null));
-////                cql.setBackgroundColor(getResources().getColor(R.color.colorSeriousLight, null));
-//
-//                break;
-//            default:
-//                rl1.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
-//                rl2.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
-////                cql.setBackgroundColor(getResources().getColor(R.color.colorNormalLight, null));
-//
-//        }
-//    }
 
     private void setupButton(ViewGroup contentView) {
         Button ok = (Button) contentView.findViewById(R.id.btn_settings_ok);
@@ -139,7 +106,7 @@ public class SettingsFragment extends DialogFragment {
 
     public int determineTheme() {
         if(nsfwToggled && seriousToggled) {
-            return TYPE_NORMAL;
+            return TYPE_SERIOUS_NSFW;
         } else if (seriousToggled) {
             return TYPE_SERIOUS;
         } else if (nsfwToggled) {
@@ -181,6 +148,12 @@ public class SettingsFragment extends DialogFragment {
                 switch_serious.toggle();
                 seriousToggled = true;
                 break;
+            case TYPE_SERIOUS_NSFW :
+                nsfwToggled = true;
+                seriousToggled = true;
+                switch_nsfw.toggle();
+                switch_serious.toggle();
+
         }
     }
 }
