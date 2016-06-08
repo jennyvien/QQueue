@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.Toast;
 
 /**
  * Created by Jenny on 6/5/2016.
@@ -36,7 +38,6 @@ public class SettingsFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.settings_dialog, null);
-//        setupBars(contentView);
         setupCurrentTheme();
         setupButton(contentView);
         setupToggles(contentView);
@@ -52,38 +53,6 @@ public class SettingsFragment extends DialogFragment {
             currentTheme = TYPE_NORMAL;
     }
 
-//    private void setupBars(ViewGroup contentView) {
-//        RelativeLayout rl1 = (RelativeLayout) contentView.findViewById(R.id.bar1);
-//        RelativeLayout rl2 = (RelativeLayout) contentView.findViewById(R.id.bar2);
-////        LinearLayout cql = (LinearLayout) contentView.findViewById(R.id.cq_layout);
-//
-//        switch (currentTheme) {
-//            case TYPE_NORMAL:
-//                rl1.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
-//                rl2.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
-////                cql.setBackgroundColor(getResources().getColor(R.color.colorNormalLight, null));
-//
-//                break;
-//            case TYPE_NSFW:
-//                rl1.setBackgroundColor(getResources().getColor(R.color.colorNSFWPrimary, null));
-//                rl2.setBackgroundColor(getResources().getColor(R.color.colorNSFWPrimary, null));
-////                cql.setBackgroundColor(getResources().getColor(R.color.colorNSFWLight, null));
-//
-//                break;
-//            case TYPE_SERIOUS:
-//                rl1.setBackgroundColor(getResources().getColor(R.color.colorSeriousPrimary, null));
-//                rl2.setBackgroundColor(getResources().getColor(R.color.colorSeriousPrimary, null));
-////                cql.setBackgroundColor(getResources().getColor(R.color.colorSeriousLight, null));
-//
-//                break;
-//            default:
-//                rl1.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
-//                rl2.setBackgroundColor(getResources().getColor(R.color.colorNormalPrimary, null));
-////                cql.setBackgroundColor(getResources().getColor(R.color.colorNormalLight, null));
-//
-//        }
-//    }
-
     private void setupButton(ViewGroup contentView) {
         Button ok = (Button) contentView.findViewById(R.id.btn_settings_ok);
         ok.setOnClickListener(new View.OnClickListener() {
@@ -92,14 +61,28 @@ public class SettingsFragment extends DialogFragment {
                 currentTheme = determineTheme();
                 Intent intent = new Intent(v.getContext(), CurrentQueueActivity.class);
                 intent.putExtra("theme", currentTheme);
+
                 final Activity act = getActivity();
 
-//                Toast.makeText(
-//                        getActivity(),
-//                        "Notifications Toggled!",
-//                        Toast.LENGTH_SHORT
-//                ).show();
+                switch(currentTheme) {
+                    case TYPE_NSFW :
+                        intent.putExtra("filtered_qs", MyData.questionsNSFW);
+                        break;
+                    case TYPE_SERIOUS :
+                        intent.putExtra("filtered_qs", MyData.questionsSerious);
+                        break;
+                    case TYPE_SERIOUS_NSFW :
+                        intent.putExtra("filtered_qs", MyData.questionsSeriousNSFW);
+                        break;
+                }
 
+                if(notificationsToggled) {
+                    Toast.makeText(
+                            v.getContext(),
+                            "You will be receiving notifications from QQueue.",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
                 startActivity(intent);
                 act.finish();
             }
@@ -145,7 +128,7 @@ public class SettingsFragment extends DialogFragment {
 
     public int determineTheme() {
         if(nsfwToggled && seriousToggled) {
-            return TYPE_NORMAL;
+            return TYPE_SERIOUS_NSFW;
         } else if (seriousToggled) {
             return TYPE_SERIOUS;
         } else if (nsfwToggled) {
@@ -160,6 +143,7 @@ public class SettingsFragment extends DialogFragment {
         super.onAttach(activity);
         SharedPreferences sp = activity.getSharedPreferences("sp", Context.MODE_PRIVATE);
         currentTheme = sp.getInt("saved_theme", TYPE_NORMAL);
+        notificationsToggled = sp.getBoolean("notif", false);
     }
 
     @Override
@@ -168,6 +152,7 @@ public class SettingsFragment extends DialogFragment {
         SharedPreferences sp = getActivity().getSharedPreferences("sp", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("saved_theme", currentTheme);
+        editor.putBoolean("notif", notificationsToggled);
         editor.commit();
     }
 
@@ -187,6 +172,13 @@ public class SettingsFragment extends DialogFragment {
                 switch_serious.toggle();
                 seriousToggled = true;
                 break;
+            case TYPE_SERIOUS_NSFW :
+                nsfwToggled = true;
+                seriousToggled = true;
+                switch_nsfw.toggle();
+                switch_serious.toggle();
         }
+        if(notificationsToggled)
+            switch_notif.toggle();
     }
 }

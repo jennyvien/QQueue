@@ -46,7 +46,7 @@ public class YourQueueContent extends ListFragment implements SwipeActionAdapter
 
         ArrayAdapter<String> stringAdapter = new ArrayAdapter<>(
                 getActivity(),
-                R.layout.your_queue_rowarrow,
+                R.layout.your_queue_row_arrow,
                 R.id.text,
                 content
         );

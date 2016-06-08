@@ -87,6 +87,10 @@ public class QuestionCardsAdapter extends RecyclerView.Adapter<QuestionCardsAdap
                     cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorSeriousCards));
 //                    textViewQuestion.setTextColor(cardView.getContext().getResources().getColor(R.color.colorSeriousCards));
                     break;
+                case TYPE_SERIOUS_NSFW:
+                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNSFWSeriousCards));
+//                    textViewQuestion.setTextColor(cardView.getContext().getResources().getColor(R.color.colorSeriousCards));
+                    break;
                 default:
 //                    textViewQuestion.setTextColor(cardView.getContext().getResources().getColor(R.color.colorNormalCards));
                     break;

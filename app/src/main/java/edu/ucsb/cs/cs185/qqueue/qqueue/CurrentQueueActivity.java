@@ -189,6 +189,11 @@ public class CurrentQueueActivity extends BaseActivity {
             Bundle extras = intent.getExtras();
             if (extras != null) {
                 questions = intent.getExtras().getStringArray(BROWSE_QUESTIONS);
+
+                if(questions == null) {
+                    questions = intent.getExtras().getStringArray("filtered_qs");
+                }
+
             }
         }
 
@@ -224,16 +229,11 @@ public class CurrentQueueActivity extends BaseActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences(PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("questions_array_size", questions.length);
+        editor.putInt("theme", theme);
         for(int i=0;i<questions.length; i++)
             editor.putString("questions_saved_" + i, questions[i]);
         editor.commit();
     }
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        finish();
-//    }
 
     @Override
     protected void onResume() {
@@ -249,7 +249,11 @@ public class CurrentQueueActivity extends BaseActivity {
         }
         resetQuestions();
 
-        adapter = new QuestionCardsAdapter(questions, true, theme);
+        if(getIntent().getExtras() == null) {
+            Log.d(DEBUG, "tuee");
+            theme = sharedPreferences.getInt("theme", TYPE_NORMAL);
+            adapter = new QuestionCardsAdapter(questions, true, theme);
+        }
         recyclerView.setAdapter(adapter);
     }
 
