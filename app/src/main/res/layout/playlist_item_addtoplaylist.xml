@@ -14,13 +14,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/colorNormalPrimary"
+            android:background="@color/colorPrimary"
             android:layout_alignParentBottom="true">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/yourQueueHeader"
+                android:textSize="@dimen/title_text"
                 android:id="@+id/yourQueueHeader"
                 android:textColor="@color/cardview_light_background"
                 android:textAlignment="center"
@@ -37,7 +38,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/colorNormalPrimary">
+            android:background="@color/colorPrimary">
 
             <Button
                 android:layout_width="wrap_content"

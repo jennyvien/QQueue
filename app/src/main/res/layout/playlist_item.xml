@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:weightSum="10"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:divider="@drawable/divider"
+    android:showDividers="middle">
 
     <TextView
         android:layout_width="0dp"
@@ -19,5 +21,6 @@
         android:src="@drawable/ic_more_horiz_black_24dp"
         android:layout_weight="1"
         android:onClick="playlistMoreClicked"
-        android:id="@+id/button_more"/>
+        android:id="@+id/button_more"
+        android:background="@null"/>
 </LinearLayout>

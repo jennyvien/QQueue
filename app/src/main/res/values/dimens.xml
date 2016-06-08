@@ -3,4 +3,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="padding">16dp</dimen>
+    <dimen name="square_card_size">250dp</dimen>
+    <dimen name="button_text">20sp</dimen>
+    <dimen name="fragment_width">500dp</dimen>
+    <dimen name="fragment_height">800dp</dimen>
+    <dimen name="title_text">30sp</dimen>
+    <dimen name="frag_text">20sp</dimen>
 </resources>
