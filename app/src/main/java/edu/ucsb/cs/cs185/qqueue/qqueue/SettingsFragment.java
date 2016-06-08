@@ -39,7 +39,7 @@ public class SettingsFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup contentView = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.settings_dialog, null);
-        setupBars(contentView);
+//        setupBars(contentView);
         setupCurrentTheme();
         setupButton(contentView);
         setupToggles(contentView);
@@ -138,7 +138,9 @@ public class SettingsFragment extends DialogFragment {
     }
 
     public int determineTheme() {
-        if (seriousToggled) {
+        if(nsfwToggled && seriousToggled) {
+            return TYPE_NORMAL;
+        } else if (seriousToggled) {
             return TYPE_SERIOUS;
         } else if (nsfwToggled) {
             return TYPE_NSFW;

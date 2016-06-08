@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs185.qqueue.qqueue;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -66,24 +67,28 @@ public class QuestionCardsAdapter extends RecyclerView.Adapter<QuestionCardsAdap
         CardView cardView = holder.cardView;
         LinearLayout cll = holder.cll;
         textViewQuestion.setText(questions[listPosition]);
-
+        Typeface font = Typeface.createFromAsset(textViewQuestion.getResources().getAssets(), "opensans.ttf");
+        textViewQuestion.setTypeface(font);
         if (useMainLayout) {
 
             switch (questionType) {
                 case TYPE_NORMAL:
-                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNormalLight));
-
+                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNormalCards));
+//                    textViewQuestion.setTextColor(cardView.getContext().getResources().getColor(R.color.colorNormalCards));
                     break;
                 case TYPE_NSFW:
-                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNSFWLight));
+                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNSFWCards));
+//                    textViewQuestion.setTextColor(cardView.getContext().getResources().getColor(R.color.colorNSFWCards));
                     break;
                 case TYPE_SERIOUS:
-                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorSeriousLight));
+                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorSeriousCards));
+//                    textViewQuestion.setTextColor(cardView.getContext().getResources().getColor(R.color.colorSeriousCards));
                     break;
                 default:
-                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNormalLight));
+                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNormalCards));
+//                    textViewQuestion.setTextColor(cardView.getContext().getResources().getColor(R.color.colorNormalCards));
                     break;
             }
-        }
+       }
     }
 }

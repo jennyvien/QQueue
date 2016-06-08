@@ -4,34 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
-    android:weightSum="5"
-    android:id="@+id/cq_layout"
-    android:padding="@dimen/padding">
+    android:background="@color/colorBackgroud"
+    android:weightSum="10"
+    android:id="@+id/cq_layout">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:scrollbars="horizontal"
-        android:layout_weight="4"
+        android:layout_weight="9"
         android:orientation="horizontal"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom ="16dp">
 
         <Button
             android:id="@+id/viewQueue"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_view_queue"
-            android:textSize="20sp"
-            style="?android:attr/borderlessButtonStyle"
+            android:textSize="30sp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:onClick="viewQueueClicked"/>
+            android:onClick="viewQueueClicked"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorText"
+            android:padding="8dp"/>
     </RelativeLayout>
 
 

@@ -5,7 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import 	android.support.v7.widget.RecyclerView;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,24 +43,24 @@ public class CurrentQueueActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         theme = getIntent().getIntExtra("theme", TYPE_NORMAL);
-
-        switch(theme) {
-            case TYPE_NORMAL :
-                this.setTheme(R.style.AppThemeNormal);
-                this.getTheme().applyStyle(R.style.AppThemeNormal, true);
-                break;
-            case TYPE_NSFW :
-                this.setTheme(R.style.AppThemeNSFW);
-                this.getTheme().applyStyle(R.style.AppThemeNSFW, true);
-                break;
-            case TYPE_SERIOUS :
-                this.setTheme(R.style.AppThemeSerious);
-                this.getTheme().applyStyle(R.style.AppThemeSerious, true);
-                break;
-            default:
-                this.setTheme(R.style.AppThemeNormal);
-                this.getTheme().applyStyle(R.style.AppThemeNormal, true);
-        }
+//
+//        switch(theme) {
+//            case TYPE_NORMAL :
+//                this.setTheme(R.style.AppThemeNormal);
+//                this.getTheme().applyStyle(R.style.AppThemeNormal, true);
+//                break;
+//            case TYPE_NSFW :
+//                this.setTheme(R.style.AppThemeNSFW);
+//                this.getTheme().applyStyle(R.style.AppThemeNSFW, true);
+//                break;
+//            case TYPE_SERIOUS :
+//                this.setTheme(R.style.AppThemeSerious);
+//                this.getTheme().applyStyle(R.style.AppThemeSerious, true);
+//                break;
+//            default:
+//                this.setTheme(R.style.AppThemeNormal);
+//                this.getTheme().applyStyle(R.style.AppThemeNormal, true);
+//        }
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle(R.string.activity_current_queue);
         Log.d(DEBUG, "in onCreate");
@@ -117,7 +118,7 @@ public class CurrentQueueActivity extends BaseActivity {
 
         adapter = new QuestionCardsAdapter(questions, true, theme);
         recyclerView.setAdapter(adapter);
-        setupBg();
+//        setupBg();
         //initialize library items
         //String[] favorites = MyData.shuffle(MyData.favorites);
         if(YourLibraryActivity.libraryItems == null) {
@@ -153,7 +154,7 @@ public class CurrentQueueActivity extends BaseActivity {
         }
     }
 
-    public static ArrayList<String> convertFromString(String[] array){
+    public static ArrayList<String> convertFromString( String[] array ){
         ArrayList<String> temp = new ArrayList<>();
         if(array.length > 0) {
             for (int i = 0; i < array.length; i++) temp.add(array[i]);
