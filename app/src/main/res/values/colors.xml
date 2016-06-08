@@ -11,6 +11,7 @@
     <color name="colorPrimaryDark">#00796B</color>
     <color name="colorText">#FFF</color>
     <color name="colorBackgroud">#FAFAFA</color>
+    <color name="colorButtonClick">#F5F5F5</color>
     <color name="colorDivider">#000000</color>
 
     <color name="colorNSFWCards">#CCD81B60</color>

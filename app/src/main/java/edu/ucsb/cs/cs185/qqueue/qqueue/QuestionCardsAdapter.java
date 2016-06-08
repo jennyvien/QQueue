@@ -65,12 +65,15 @@ public class QuestionCardsAdapter extends RecyclerView.Adapter<QuestionCardsAdap
     public void onBindViewHolder(final MyViewHolder holder, final int listPosition) {
         TextView textViewQuestion = holder.textViewQuestion;
         CardView cardView = holder.cardView;
-        LinearLayout cll = holder.cll;
+        if(cardView != null) {
+            cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNormalCards));
+        }
+            LinearLayout cll = holder.cll;
         textViewQuestion.setText(questions[listPosition]);
         Typeface font = Typeface.createFromAsset(textViewQuestion.getResources().getAssets(), "opensans.ttf");
+
         textViewQuestion.setTypeface(font);
         if (useMainLayout) {
-
             switch (questionType) {
                 case TYPE_NORMAL:
                     cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNormalCards));
@@ -85,7 +88,6 @@ public class QuestionCardsAdapter extends RecyclerView.Adapter<QuestionCardsAdap
 //                    textViewQuestion.setTextColor(cardView.getContext().getResources().getColor(R.color.colorSeriousCards));
                     break;
                 default:
-                    cardView.setCardBackgroundColor(cardView.getContext().getResources().getColor(R.color.colorNormalCards));
 //                    textViewQuestion.setTextColor(cardView.getContext().getResources().getColor(R.color.colorNormalCards));
                     break;
             }
