@@ -91,6 +91,11 @@ public class YourLibraryActivity extends BaseActivity {
 //    @Override
 //    protected void onPause() {
 //        super.onPause();
+//        finish();
+//    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
 //        setContentView(R.layout.activity_your_library);
 //        setupNavigationDrawer();
 //        getSupportActionBar().setTitle(R.string.activity_your_library);
@@ -226,6 +231,12 @@ public class YourLibraryActivity extends BaseActivity {
 
     }
 
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        Intent intent = new Intent(CurrentQueueActivity.CQAview.getContext(), CurrentQueueActivity.class);
+//        startActivity(intent);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

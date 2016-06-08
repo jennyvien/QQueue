@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import 	android.support.v7.widget.RecyclerView;
-import android.content.SharedPreferences;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,6 +37,8 @@ public class CurrentQueueActivity extends BaseActivity {
 
     Button viewQueue;
     private int currentQuestionPos;
+
+    static View CQAview;
 
     int theme;
     @Override
@@ -132,6 +133,9 @@ public class CurrentQueueActivity extends BaseActivity {
             }
         }
 
+
+        CQAview = this.findViewById(R.id.drawer_layout);
+
     }
                 
     public static String[] convert(ArrayList<String> array){
@@ -224,6 +228,12 @@ public class CurrentQueueActivity extends BaseActivity {
             editor.putString("questions_saved_" + i, questions[i]);
         editor.commit();
     }
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        finish();
+//    }
 
     @Override
     protected void onResume() {
