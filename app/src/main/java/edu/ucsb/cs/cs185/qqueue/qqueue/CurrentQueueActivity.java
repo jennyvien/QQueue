@@ -119,12 +119,14 @@ public class CurrentQueueActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
         setupBg();
         //initialize library items
+        //String[] favorites = MyData.shuffle(MyData.favorites);
         if(YourLibraryActivity.libraryItems == null) {
             YourLibraryActivity.libraryItems = new ArrayList<BrowseItem>();
             for (int i = 0; i < MyData.yourLibraryQueueNames.length; i++) {
                 YourLibraryActivity.libraryItems.add(new BrowseItem(
                         MyData.yourLibraryQueueNames[i],
-                        MyData.questions_3
+//                        MyData.favorites
+                        MyData.favorites
                 ));
             }
         }

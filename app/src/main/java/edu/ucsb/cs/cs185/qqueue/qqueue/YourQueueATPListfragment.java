@@ -96,9 +96,9 @@ public class YourQueueATPListfragment extends ListFragment implements SwipeActio
 
 
         String queueName = (String) mAdapter.getItem(position);
-        //slave.addToLibraryItems(queueName, question);
+        slave.addListToLibraryItem(queueName, questions);
         //slave.updateLibraryItem(queueName, questions);
-        slave.updateLibraryItem(queueName, questions);
+//        slave.updateLibraryItem(queueName, questions);
 
         Toast.makeText(
                 getActivity(),

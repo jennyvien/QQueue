@@ -88,7 +88,9 @@ private YourLibraryActivity slave2 = new YourLibraryActivity();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter = new PlaylistItemAdapter(queueQuestions);
+//        adapter = new PlaylistItemAdapter(queueQuestions);
+        if( type.equals("library") )adapter = new PlaylistItemAdapter(queueQuestions);
+        else adapter = new BrowseListItemAdapter(queueQuestions);
         recyclerView.setAdapter(adapter);
 
     }
@@ -119,7 +121,9 @@ private YourLibraryActivity slave2 = new YourLibraryActivity();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter = new PlaylistItemAdapter(queueQuestions);
+//        adapter = new PlaylistItemAdapter(queueQuestions);
+        if( type.equals("library") )adapter = new PlaylistItemAdapter(queueQuestions);
+        else adapter = new BrowseListItemAdapter(queueQuestions);
         recyclerView.setAdapter(adapter);
     }
 

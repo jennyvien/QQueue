@@ -33,12 +33,29 @@ public class BrowseActivity extends BaseActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         browseItems = new ArrayList<BrowseItem>();
-        for (int i = 0; i < MyData.browseQueueNames.length; i++) {
-            browseItems.add(new BrowseItem(
-                    MyData.browseQueueNames[i],
-                    MyData.questions_2
+//        for (int i = 0; i < MyData.browseQueueNames.length; i++) {
+//            browseItems.add(new BrowseItem(
+//                    MyData.browseQueueNames[i],
+//                    MyData.questions_2
+//            ));
+//        }
+
+        browseItems.add(new BrowseItem(
+                    MyData.browseQueueNames[0],
+                    MyData.shuffle(MyData.questions_2)
             ));
-        }
+        browseItems.add(new BrowseItem(
+                MyData.browseQueueNames[1],
+                MyData.shuffle(MyData.questions_3)
+        ));
+        browseItems.add(new BrowseItem(
+                MyData.browseQueueNames[2],
+                MyData.shuffle(MyData.questions_4)
+        ));
+        browseItems.add(new BrowseItem(
+                MyData.browseQueueNames[3],
+                MyData.shuffle(MyData.questions_5)
+        ));
 
         adapter = new ItemAdapter(browseItems, false);
         recyclerView.setAdapter(adapter);

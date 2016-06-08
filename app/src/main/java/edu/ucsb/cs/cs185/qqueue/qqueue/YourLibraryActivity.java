@@ -187,6 +187,23 @@ public class YourLibraryActivity extends BaseActivity {
 
     }
 
+    public void addListToLibraryItem( String queueName, String[] questions) {
+        Log.d(DEBUG, queueName);
+
+        for (int i = 0; i < libraryItems.size(); i++) {
+            BrowseItem item = libraryItems.get(i);
+            Log.d(DEBUG, item.getQueueName());
+            String qName = item.getQueueName();
+            if (qName.equals(queueName)) {
+                for(int j = 0; j < questions.length; j++) {
+                    addToLibraryItems(queueName, questions[j]);
+                }
+            }
+        }
+    }
+
+
+
     public void removeLibraryItem( String queueName ){
 
         Log.d(DEBUG, queueName);

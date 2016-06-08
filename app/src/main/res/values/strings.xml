@@ -10,7 +10,7 @@
     <string name="yourQueueHeader">Your Queue</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="addtoplaylist">Add to Playlist</string>
+    <string name="addtoplaylist">Add To Your Queue</string>
 
     <string name="settings">Settings</string>
     <string name="settings_nsfw">NSFW</string>

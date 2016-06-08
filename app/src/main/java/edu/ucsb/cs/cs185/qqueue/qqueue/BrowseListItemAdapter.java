@@ -65,7 +65,8 @@ public class BrowseListItemAdapter extends RecyclerView.Adapter<BrowseListItemAd
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int listPosition) {
         TextView textViewQueueName = holder.textViewQueueName;
-//        ImageButton buttonMore = holder.buttonMore;
+        ImageButton buttonMore = holder.buttonMore;
+        buttonMore.setVisibility(View.GONE);
 
         textViewQueueName.setText(queueQuestions[listPosition]);
 
