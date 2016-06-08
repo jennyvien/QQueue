@@ -61,7 +61,20 @@ public class SettingsFragment extends DialogFragment {
                 currentTheme = determineTheme();
                 Intent intent = new Intent(v.getContext(), CurrentQueueActivity.class);
                 intent.putExtra("theme", currentTheme);
+
                 final Activity act = getActivity();
+
+                switch(currentTheme) {
+                    case TYPE_NSFW :
+                        intent.putExtra("filtered_qs", MyData.questionsNSFW);
+                        break;
+                    case TYPE_SERIOUS :
+                        intent.putExtra("filtered_qs", MyData.questionsSerious);
+                        break;
+                    case TYPE_SERIOUS_NSFW :
+                        intent.putExtra("filtered_qs", MyData.questionsSeriousNSFW);
+                        break;
+                }
 
                 if(notificationsToggled) {
                     Toast.makeText(
